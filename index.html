@@ -898,7 +898,7 @@
       box-shadow: 0 16px 40px rgba(106, 68, 145, .16);
     }
 
-    .card:last-child {
+    .card:last-child:nth-child(odd) {
       grid-column: 1/-1;
       max-width: 560px;
       justify-self: center;
@@ -1562,12 +1562,68 @@
       gap: 10px;
     }
 
+    #lb-stage {
+      flex: 1;
+      min-height: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: zoom-in;
+      touch-action: none;
+      user-select: none;
+    }
+
+    #lb-stage.zoomed { cursor: grab; }
+    #lb-stage.drag { cursor: grabbing; }
+
     #lb figure img {
       max-width: 100%;
-      max-height: calc(100vh - 170px);
+      max-height: calc(100vh - 190px);
       object-fit: contain;
       border-radius: 8px;
+      transform-origin: center;
+      transition: transform .15s ease-out;
+      -webkit-user-drag: none;
+      pointer-events: none;
     }
+
+    #lb-stage.drag img { transition: none; }
+
+    #lb .zt {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #e2dcea;
+      font-size: .8rem;
+    }
+
+    #lb .zt button {
+      width: 40px;
+      height: 40px;
+      font-size: 1.3rem;
+    }
+
+    #lb .zt span {
+      min-width: 44px;
+      text-align: center;
+    }
+
+    .proj-link {
+      display: inline-block;
+      margin-top: 14px;
+      color: #6B4491;
+      font-weight: 600;
+      font-size: .85rem;
+      text-decoration: none;
+    }
+
+    .proj-link:hover { text-decoration: underline; }
 
     #lb figcaption {
       color: #e2dcea;
@@ -2036,8 +2092,17 @@
   <!-- LIGHTBOX -->
   <div id="lb" hidden>
     <button class="x" aria-label="Cerrar">✕</button>
+    <div class="zt" aria-label="Zoom">
+      <button class="zo" aria-label="Alejar" title="Alejar (-)">−</button>
+      <span id="lb-level">100%</span>
+      <button class="zi" aria-label="Acercar" title="Acercar (+)">+</button>
+      <button class="zr" aria-label="Restablecer zoom" title="Restablecer (0)"><i class="bi bi-arrows-angle-contract"></i></button>
+    </div>
     <button class="pv" aria-label="Anterior">‹</button>
-    <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+    <figure>
+      <div id="lb-stage"><img id="lb-img" alt="" draggable="false"></div>
+      <figcaption id="lb-cap"></figcaption>
+    </figure>
     <button class="nx" aria-label="Siguiente">›</button>
     <div class="th" id="lb-thumbs"></div>
   </div>
@@ -2045,32 +2110,93 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     /* ===== Datos ===== */
+    const GH = "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/";
+    const gh = (commit, files) => files.map(f => GH + commit + "/" + f);
+
+    // [nombre, subtítulo ES, subtítulo EN, etiqueta ES, etiqueta EN, descripción ES, descripción EN]
     const PROJECTS = [
       ["Servimeters", "Diseño UI · Certificación ISO y RETIE", "UI Design · ISO & RETIE Certification", "Diseño UI · 2024", "UI Design · 2024", "Diseño UI para servicios de certificación ISO, RETIE y compliance.", "UI design for ISO certification, RETIE and compliance services."],
-      ["Hangar / CCR", "Manual de marca y sistema visual", "Brand Guidelines & Visual System", "Rebranding · 2022", "Rebranding · 2022", "Rebranding completo, manuales de marca y aplicación de identidad visual.", "Complete rebranding, brand manuals and visual identity application."],
-      ["Moto Moto Refacciones", "Branding automotriz y retail", "Automotive Branding & Retail", "Branding · 2023", "Branding · 2023", "Creación de marca completa: logotipo, aplicaciones y papelería.", "End-to-end brand creation: logo, applications and stationery."],
+      ["Branding de marcas", "Identidad visual para varias marcas", "Visual identity for multiple brands", "Branding", "Branding", "Selección de proyectos de branding: logotipos, aplicaciones y piezas gráficas para distintas marcas.", "A selection of branding projects: logos, applications and graphic pieces for different brands."],
+      ["CCR", "Manual de marca y sistema visual", "Brand Guidelines & Visual System", "Rebranding · 2022", "Rebranding · 2022", "Rebranding completo, manual de marca y aplicación de la identidad visual.", "Complete rebranding, brand manual and visual identity application."],
+      ["Hangar", "Branding y piezas publicitarias", "Branding & Advertising Pieces", "Branding", "Branding", "Identidad de marca, publicidad y volantes para Hangar Emprendedor.", "Brand identity, advertising and flyers for Hangar Emprendedor."],
+      ["Life Panama", "Diseño editorial y branding", "Editorial Design & Branding", "Diseño Editorial", "Editorial Design", "Maquetación de la revista inmobiliaria, portadas, newsletters y piezas de lanzamiento.", "Real-estate magazine layout, covers, newsletters and launch pieces."],
+      ["Lola's Day Care Panama", "Branding · Diseño UI/UX", "Branding · UI/UX Design", "Branding · UI/UX", "Branding · UI/UX", "Identidad de marca y diseño UI/UX de la app web responsive: ingreso, registro y flujos de usuario.", "Brand identity and UI/UX design for the responsive web app: login, sign-up and user flows."],
       ["Celebrando Diversidades", "Diseño editorial y maquetación de libro", "Editorial Design & Book Layout", "Diseño Editorial · 2024", "Editorial Design · 2024", "Proyecto editorial con ilustración y maquetación para publicación impresa.", "Editorial project with illustration and typesetting for a print publication."],
       ["Packaging", "Empaques, troqueles y cajas", "Packaging, Die-cuts & Boxes", "Diseño de Packaging · 2024", "Packaging Design · 2024", "Soluciones de empaque: cajas, bolsas, etiquetas y ediciones especiales.", "Packaging solutions: boxes, bags, labels and special editions."]
     ];
 
-    /* ===== Imágenes de Proyectos ===== */
+    /* ===== Enlaces a Behance (opcional por proyecto) ===== */
+    const PROJECT_LINKS = {
+      "Branding de marcas": "https://www.behance.net/gallery/183817935/Moto-Moto-Refacciones-Manzanilo-Brand",
+      "CCR": "https://www.behance.net/gallery/163585267/CCR-effect-Brand-Book-Presentation",
+      "Hangar": "https://www.behance.net/gallery/133050217/Hangar-Emprendedor",
+      "Life Panama": "https://www.behance.net/gallery/82111929/Life-Panama-Revista-Inmobiliaria",
+      "Lola's Day Care Panama": "https://www.behance.net/gallery/192503369/Web-Responsive-UX-UI-Design"
+    };
+
+    /* ===== Imágenes de Proyectos (la primera es la portada) ===== */
     const PROJECT_IMAGES = {
       "Servimeters": [
-        // Batch original (7)
-        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Manual-de-marca-SERVIMETERS-en-azul.webp",
-        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Mockup-corporativo-azul-con-portafolio-abierto.webp",
-        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Mockup-corporativo-del-portafolio-Servimeters.webp",
-        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Mockup-corporativo-en-laptop-con-luz-geom%C3%A9trica.webp",
-        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Papeler%C3%ADa-corporativa-azul-de-Servimeters.webp",
-        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Presentaci%C3%B3n-de-Instagram-sobre-ascensores.webp",
-        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Sello-de-marca-Servimeters-en-papel-blanco%20(1).webp",
-        // Nuevas (RETIE / Instagram 2024)
-        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/bb23e63de0e1dfa00091418ca09284edfcc01599/Collage%20de%20publicaciones%20de%20Instagram%20sobre%20RETIE.webp",
-        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/bb23e63de0e1dfa00091418ca09284edfcc01599/Mockup%20Instagram%20de%20formaci%C3%B3n%20industrial.webp",
-        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/bb23e63de0e1dfa00091418ca09284edfcc01599/Mosaico%20isom%C3%A9trico%20de%20publicaciones%20de%20Instagram%20sobre%20RETIE%202024.webp"
-      ]
-      // Agrega más proyectos aquí cuando tengas imágenes, por ejemplo:
-      // "Hangar / CCR": [ ... ],
+        ...gh("a95e9fbda2a50f088b079c5eb0dcca47a7940d1c", [
+          "Mockup-corporativo-del-portafolio-Servimeters.webp",
+          "Manual-de-marca-SERVIMETERS-en-azul.webp",
+          "Mockup-corporativo-azul-con-portafolio-abierto.webp",
+          "Mockup-corporativo-en-laptop-con-luz-geom%C3%A9trica.webp",
+          "Papeler%C3%ADa-corporativa-azul-de-Servimeters.webp",
+          "Presentaci%C3%B3n-de-Instagram-sobre-ascensores.webp",
+          "Sello-de-marca-Servimeters-en-papel-blanco%20(1).webp"
+        ]),
+        ...gh("bb23e63de0e1dfa00091418ca09284edfcc01599", [
+          "Collage%20de%20publicaciones%20de%20Instagram%20sobre%20RETIE.webp",
+          "Mockup%20Instagram%20de%20formaci%C3%B3n%20industrial.webp",
+          "Mosaico%20isom%C3%A9trico%20de%20publicaciones%20de%20Instagram%20sobre%20RETIE%202024.webp"
+        ])
+      ],
+      "Branding de marcas": gh("3c771274f667b13dc3707ec67f2a6a074226cd12", [
+        "2026-10-16%2013_21_56-%232-convertido-de-png.webp"
+      ]),
+      "CCR": gh("45945061208c10e0496910400cba1f02f2be1930", [
+        "%5BJotako%5D%20Behance%20CCR-10-convertido-de-png.webp",
+        "BRAND-14.webp",
+        "%5BCCRe%5D%20Manual%20de%20Marca-05-convertido-de-jpg.webp",
+        "%5BCCRe%5D%20Manual%20de%20Marca-08-convertido-de-jpg.webp",
+        "%5BCCRe%5D%20Manual%20de%20Marca-13-convertido-de-png.webp",
+        "%5BCCRe%5D%20Manual%20de%20Marca-23-convertido-de-jpg.webp",
+        "%5BJotako%5D%20Behance%20CCR-04-convertido-de-jpg.webp",
+        "%5BJotako%5D%20Behance%20CCR-05-convertido-de-jpg.webp",
+        "%5BJotako%5D%20Behance%20CCR-06-convertido-de-jpg.webp",
+        "%5BJotako%5D%20Behance%20CCR-07-convertido-de-jpg.webp"
+      ]),
+      "Hangar": gh("aa73b78f83a50aa3ee5d96b8dfc0664b3b99e8ca", [
+        "hangar%20logo%20panama.webp",
+        "2026-10-16%2013_02_57-%232-convertido-de-png.webp",
+        "2026-10-16%2013_03_33-%232-convertido-de-png.webp",
+        "hangar%20publicidad.webp",
+        "hangar%20volantes.webp",
+        "hangar.webp"
+      ]),
+      "Life Panama": gh("5b1c0fc04beab3b43b2a6e63108396a2f756446d", [
+        "life%20panama%20editorial.webp",
+        "%5B015604%5D-convertido-de-jpg.webp",
+        "%5B015592%5D-convertido-de-jpg.webp",
+        "%5B003790%5D-convertido-de-jpg.webp",
+        "%5B003780%5D-convertido-de-jpg.webp",
+        "Life%20Newsletter_v2_%2314-01-01.webp",
+        "Life%20Lanzamiento!%20%2328%20Junio_Mesa%20de%20trabajo%201.webp",
+        "LIFE%20PANAMA%20%2327%20Edici%C3%B3n%20Mayo%202018_v1.3.2_049.webp"
+      ]),
+      "Lola's Day Care Panama": gh("8c1ebeeb20bb923acbf91c9794ecb0908957d371", [
+        "%5BJotako%5D%20Lola's%20App%20Ingreso%20UI-UX-08.webp",
+        "lolas.webp",
+        "flujo%20lolas%20app.webp",
+        "%5BJotako%5D%20Lola's%20App%20Ingreso%20UI-UX-07.webp",
+        "%5BJotako%5D%20Lola's%20App%20Ingreso%20UI-UX-05.webp",
+        "%5BJotako%5D%20Lola's%20App%20Ingreso%20UI-UX-04.webp",
+        "Lola's%20Registro%20flujo-09.webp",
+        "%24R48K3J4-convertido-de-jpg.webp",
+        "%24R42FN1E-convertido-de-jpg.webp"
+      ])
+      // Agrega más proyectos aquí cuando tengas imágenes.
     };
 
     const PLACE = {
@@ -2215,37 +2341,48 @@
 
     /* ===== Render Proyectos ===== */
     const projWrap = $('#projects');
-    if (projWrap) {
+    function renderProjects() {
+      if (!projWrap) return;
+      const es = LANG === 'es';
       projWrap.innerHTML = PROJECTS.map((p, i) => {
         const imgs = PROJECT_IMAGES[p[0]];
         const hasImgs = imgs && imgs.length > 0;
+        const link = PROJECT_LINKS[p[0]];
         const mock = hasImgs
-          ? `<div class="mock has-img" data-project="${p[0]}">
+          ? `<div class="mock has-img" data-i="${i}" role="button" tabindex="0" aria-label="${es ? 'Ver imágenes de' : 'View images of'} ${p[0]}">
                <img src="${imgs[0]}" alt="${p[0]}" loading="lazy">
-               <span class="cnt">${imgs.length} fotos</span>
+               <span class="cnt"><i class="bi bi-zoom-in"></i> ${imgs.length} ${es ? (imgs.length === 1 ? 'imagen' : 'imágenes') : (imgs.length === 1 ? 'image' : 'images')}</span>
              </div>`
           : `<div class="mock">
                <b>${p[0]}</b>
-               <small>${LANG==='es'?p[3]:p[4]}</small>
+               <small>${es ? p[3] : p[4]}</small>
              </div>`;
+        const more = link
+          ? `<a class="proj-link" href="${link}" target="_blank" rel="noopener">${es ? 'Ver proyecto en Behance' : 'View project on Behance'} <i class="bi bi-box-arrow-up-right"></i></a>`
+          : '';
         return `
           <article class="card">
             ${mock}
             <h3>${p[0]}</h3>
-            <div class="m">${LANG==='es'?p[1]:p[2]}</div>
-            <p>${LANG==='es'?p[5]:p[6]}</p>
+            <div class="m">${es ? p[1] : p[2]}</div>
+            <p>${es ? p[5] : p[6]}</p>
+            ${more}
           </article>
         `;
       }).join('');
 
       projWrap.querySelectorAll('.mock.has-img').forEach(mock => {
-        mock.addEventListener('click', () => {
-          const projectName = mock.dataset.project;
-          const imgs = PROJECT_IMAGES[projectName];
-          if (imgs) openLB(imgs, 0, projectName);
+        const open = () => {
+          const p = PROJECTS[+mock.dataset.i];
+          openLB(PROJECT_IMAGES[p[0]], 0, p[0]);
+        };
+        mock.addEventListener('click', open);
+        mock.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
         });
       });
     }
+    renderProjects();
 
     /* ===== Render Timeline (tinta + zoom) ===== */
     const tlWrap = $('#timeline');
@@ -2503,19 +2640,55 @@
       });
     }
 
-    /* ===== Lightbox (Proyectos) ===== */
+    /* ===== Lightbox (Proyectos) con zoom ===== */
     const lb = $('#lb'), lbImg = $('#lb-img'), lbCap = $('#lb-cap'), lbTh = $('#lb-thumbs');
-    let lbImgs = [], lbIdx = 0;
+    const lbStage = $('#lb-stage'), lbLevel = $('#lb-level');
+    let lbImgs = [], lbIdx = 0, lbTitle = '';
+    const Z = { s: 1, x: 0, y: 0 }, Z_MAX = 5;
 
-    function openLB(imgs, idx, cap = "") {
-      lbImgs = imgs;
-      lbIdx = idx;
+    function applyZoom() {
+      Z.s = Math.min(Z_MAX, Math.max(1, Z.s));
+      if (Z.s === 1) { Z.x = 0; Z.y = 0; }
+      else {
+        const r = lbStage.getBoundingClientRect();
+        const mx = Math.max(0, (lbImg.offsetWidth * Z.s - r.width) / 2);
+        const my = Math.max(0, (lbImg.offsetHeight * Z.s - r.height) / 2);
+        Z.x = Math.min(mx, Math.max(-mx, Z.x));
+        Z.y = Math.min(my, Math.max(-my, Z.y));
+      }
+      lbImg.style.transform = `translate(${Z.x}px, ${Z.y}px) scale(${Z.s})`;
+      lbStage.classList.toggle('zoomed', Z.s > 1);
+      lbLevel.textContent = Math.round(Z.s * 100) + '%';
+    }
+
+    // Zoom manteniendo fijo el punto (cx, cy) relativo al centro del visor
+    function zoomTo(newS, cx = 0, cy = 0) {
+      newS = Math.min(Z_MAX, Math.max(1, newS));
+      const k = newS / Z.s;
+      Z.x = cx - (cx - Z.x) * k;
+      Z.y = cy - (cy - Z.y) * k;
+      Z.s = newS;
+      applyZoom();
+    }
+
+    function resetZoom() { Z.s = 1; Z.x = 0; Z.y = 0; applyZoom(); }
+
+    function renderLB() {
+      lbImg.src = lbImgs[lbIdx];
+      lbCap.textContent = lbTitle + (lbImgs.length > 1 ? ` · ${lbIdx + 1} / ${lbImgs.length}` : '');
+      lbTh.innerHTML = lbImgs.length > 1
+        ? lbImgs.map((s, i) => `<button data-i="${i}" class="${i === lbIdx ? 'on' : ''}"><img src="${s}" alt=""></button>`).join('')
+        : '';
+      const on = lbTh.querySelector('.on');
+      if (on) on.scrollIntoView({ block: 'nearest', inline: 'center' });
+      resetZoom();
+    }
+
+    function openLB(imgs, idx, title = '') {
+      lbImgs = imgs; lbIdx = idx; lbTitle = title;
       lb.hidden = false;
-      lbImg.src = imgs[idx];
-      lbCap.textContent = cap;
-      lbTh.innerHTML = imgs.length > 1 ?
-        imgs.map((s, i) => `<button data-i="${i}" class="${i===idx?'on':''}"><img src="${s}" alt=""></button>`).join('') : '';
       document.body.style.overflow = 'hidden';
+      renderLB();
     }
 
     function closeLB() {
@@ -2523,22 +2696,102 @@
       document.body.style.overflow = '';
     }
 
+    function stepLB(d) {
+      if (lbImgs.length < 2) return;
+      lbIdx = (lbIdx + d + lbImgs.length) % lbImgs.length;
+      renderLB();
+    }
+
     if (lb) {
       lb.querySelector('.x').onclick = closeLB;
-      lb.querySelector('.pv').onclick = () => { lbIdx = (lbIdx - 1 + lbImgs.length) % lbImgs.length; openLB(lbImgs, lbIdx, lbCap.textContent); };
-      lb.querySelector('.nx').onclick = () => { lbIdx = (lbIdx + 1) % lbImgs.length; openLB(lbImgs, lbIdx, lbCap.textContent); };
+      lb.querySelector('.pv').onclick = () => stepLB(-1);
+      lb.querySelector('.nx').onclick = () => stepLB(1);
+      lb.querySelector('.zi').onclick = () => zoomTo(Z.s * 1.5);
+      lb.querySelector('.zo').onclick = () => zoomTo(Z.s / 1.5);
+      lb.querySelector('.zr').onclick = resetZoom;
       lbTh.addEventListener('click', e => {
         const b = e.target.closest('button[data-i]');
         if (!b) return;
         lbIdx = +b.dataset.i;
-        openLB(lbImgs, lbIdx, lbCap.textContent);
+        renderLB();
       });
+
+      const centerOf = e => {
+        const r = lbStage.getBoundingClientRect();
+        return [e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2)];
+      };
+
+      // Rueda del mouse / trackpad
+      lbStage.addEventListener('wheel', e => {
+        e.preventDefault();
+        const [cx, cy] = centerOf(e);
+        zoomTo(Z.s * (e.deltaY < 0 ? 1.2 : 1 / 1.2), cx, cy);
+      }, { passive: false });
+
+      // Clic = zoom / alejar, arrastrar = mover, pellizco = zoom (táctil)
+      const ptrs = new Map();
+      let moved = false, pinch0 = 0, pinchS = 1, last = null;
+
+      lbStage.addEventListener('pointerdown', e => {
+        lbStage.setPointerCapture(e.pointerId);
+        ptrs.set(e.pointerId, e);
+        moved = false;
+        last = { x: e.clientX, y: e.clientY };
+        if (ptrs.size === 2) {
+          const [a, b] = [...ptrs.values()];
+          pinch0 = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+          pinchS = Z.s;
+        }
+      });
+
+      lbStage.addEventListener('pointermove', e => {
+        if (!ptrs.has(e.pointerId)) return;
+        ptrs.set(e.pointerId, e);
+        if (ptrs.size === 2) {
+          const [a, b] = [...ptrs.values()];
+          const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+          const [cx, cy] = centerOf({ clientX: (a.clientX + b.clientX) / 2, clientY: (a.clientY + b.clientY) / 2 });
+          moved = true;
+          zoomTo(pinchS * d / pinch0, cx, cy);
+        } else if (Z.s > 1) {
+          const dx = e.clientX - last.x, dy = e.clientY - last.y;
+          if (Math.abs(dx) + Math.abs(dy) > 2) moved = true;
+          Z.x += dx; Z.y += dy;
+          last = { x: e.clientX, y: e.clientY };
+          lbStage.classList.add('drag');
+          applyZoom();
+        } else if (Math.hypot(e.clientX - last.x, e.clientY - last.y) > 6) {
+          moved = true;
+        }
+      });
+
+      const endPtr = e => {
+        if (!ptrs.has(e.pointerId)) return;
+        const wasSingle = ptrs.size === 1;
+        ptrs.delete(e.pointerId);
+        lbStage.classList.remove('drag');
+        if (wasSingle && !moved && e.type === 'pointerup') {
+          if (Z.s > 1) resetZoom();
+          else { const [cx, cy] = centerOf(e); zoomTo(2.5, cx, cy); }
+        }
+        if (ptrs.size === 1) { const r = [...ptrs.values()][0]; last = { x: r.clientX, y: r.clientY }; }
+      };
+      lbStage.addEventListener('pointerup', endPtr);
+      lbStage.addEventListener('pointercancel', endPtr);
+
+      // Clic en el fondo oscuro cierra
+      lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
+
       document.addEventListener('keydown', e => {
         if (lb.hidden) return;
         if (e.key === 'Escape') closeLB();
-        if (e.key === 'ArrowLeft') lb.querySelector('.pv').click();
-        if (e.key === 'ArrowRight') lb.querySelector('.nx').click();
+        if (e.key === 'ArrowLeft') stepLB(-1);
+        if (e.key === 'ArrowRight') stepLB(1);
+        if (e.key === '+' || e.key === '=') zoomTo(Z.s * 1.5);
+        if (e.key === '-') zoomTo(Z.s / 1.5);
+        if (e.key === '0') resetZoom();
       });
+      window.addEventListener('resize', () => { if (!lb.hidden) applyZoom(); });
     }
 
     /* ===== Idioma ===== */
@@ -2577,35 +2830,7 @@
     }
 
     function renderAll() {
-      if (projWrap) {
-        projWrap.innerHTML = PROJECTS.map(p => {
-          const imgs = PROJECT_IMAGES[p[0]];
-          const hasImgs = imgs && imgs.length > 0;
-          const mock = hasImgs
-            ? `<div class="mock has-img" data-project="${p[0]}">
-                 <img src="${imgs[0]}" alt="${p[0]}" loading="lazy">
-                 <span class="cnt">${imgs.length} fotos</span>
-               </div>`
-            : `<div class="mock">
-                 <b>${p[0]}</b>
-                 <small>${LANG==='es'?p[3]:p[4]}</small>
-               </div>`;
-          return `
-            <article class="card">
-              ${mock}
-              <h3>${p[0]}</h3>
-              <div class="m">${LANG==='es'?p[1]:p[2]}</div>
-              <p>${LANG==='es'?p[5]:p[6]}</p>
-            </article>`;
-        }).join('');
-        projWrap.querySelectorAll('.mock.has-img').forEach(mock => {
-          mock.addEventListener('click', () => {
-            const projectName = mock.dataset.project;
-            const imgs = PROJECT_IMAGES[projectName];
-            if (imgs) openLB(imgs, 0, projectName);
-          });
-        });
-      }
+      renderProjects();
       renderTimeline();
     }
 
