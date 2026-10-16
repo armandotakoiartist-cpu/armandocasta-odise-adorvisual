@@ -897,7 +897,7 @@
     /* ===== TIMELINE ===== */
     #trayectoria {
       background: #fff;
-      padding: 96px 0;
+      padding: 120px 0 140px;
       overflow: hidden;
     }
 
@@ -907,9 +907,9 @@
       align-items: flex-end;
       gap: 24px;
       flex-wrap: wrap;
-      padding-bottom: 16px;
+      padding-bottom: 20px;
       border-bottom: 1px solid #eee;
-      margin-bottom: 56px;
+      margin-bottom: 40px;
     }
 
     .th h2 {
@@ -930,7 +930,7 @@
     }
 
     .tf {
-      margin-top: 40px;
+      margin-top: 56px;
       display: flex;
       justify-content: space-between;
       font-size: .7rem;
@@ -938,146 +938,314 @@
       letter-spacing: .2em;
     }
 
-    .tw {
+    .tl {
+      --z: 1;
       position: relative;
-      height: 640px;
-      margin: 0 -8px;
-      min-width: 1400px;
-      overflow-x: auto;
-      overflow-y: hidden;
+      padding: 64px 0 40px;
     }
 
-    .tw svg {
+    /* barra de zoom (flotante mientras se recorre la sección) */
+    .tl-bar {
+      position: sticky;
+      top: 96px;
+      z-index: 30;
+      height: 0;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .tl-zoom {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: -44px;
+      padding: 5px;
+      border-radius: 30px;
+      background: rgba(26, 15, 46, .94);
+      color: var(--off);
+      font: 600 .72rem var(--body);
+      box-shadow: 0 8px 24px rgba(26, 15, 46, .25);
+    }
+
+    .tl-zoom .zl {
+      padding: 0 6px 0 12px;
+      opacity: .7;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .62rem;
+    }
+
+    .tl-zoom button {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: 700 1rem var(--body);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: .2s;
+    }
+
+    .tl-zoom button:hover:not(:disabled) {
+      background: var(--takoi);
+    }
+
+    .tl-zoom button:disabled {
+      opacity: .3;
+      cursor: default;
+    }
+
+    .tl-zoom output {
+      min-width: 46px;
+      text-align: center;
+    }
+
+    /* línea de tinta */
+    .tl-ink {
       position: absolute;
-      inset: 0;
+      left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
+      overflow: visible;
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .tw path {
-      fill: none;
-      stroke: #000;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-dasharray: 3000;
-      stroke-dashoffset: 3000;
-      transition: stroke-dashoffset 3.5s ease, stroke .3s;
+    .ink-ribbon {
+      fill: #15101f;
+      transition: fill .5s ease;
     }
 
-    .tw.in path {
-      stroke-dashoffset: 0;
+    .tl:hover .ink-ribbon,
+    .tl:focus-within .ink-ribbon {
+      fill: var(--takoi);
     }
 
-    .tw:hover path {
-      stroke: var(--takoi);
+    #nib {
+      filter: drop-shadow(0 3px 4px rgba(21, 16, 31, .3));
+      transition: opacity .3s;
     }
 
-    .nd {
-      position: absolute;
-      left: calc(var(--t)*100%);
-      width: 140px;
-      transform: translateX(-50%);
-      font-size: .65rem;
-      line-height: 1.3;
+    #nib .nib-body {
+      fill: var(--takoi);
     }
 
-    .nd.up {
-      bottom: calc(640px - var(--y) + 34px);
+    #nib .nib-tip {
+      fill: #15101f;
+      transition: fill .5s;
     }
 
-    .nd.dn {
-      top: calc(var(--y) + 34px);
+    .tl:hover #nib .nib-tip {
+      fill: var(--mid);
     }
 
-    .nd::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      width: 1px;
-      background: #bbb;
-      height: 28px;
+    .tl-list {
+      position: relative;
+      z-index: 2;
     }
 
-    .nd.up::before {
-      bottom: -31px;
+    .tl-item {
+      display: grid;
+      grid-template-columns: 1fr 120px 1fr;
+      align-items: center;
+      margin-bottom: calc(96px * var(--z));
     }
 
-    .nd.dn::before {
-      top: -31px;
+    .tl-item:last-child {
+      margin-bottom: 80px;
     }
 
-    .dot {
-      position: absolute;
-      left: calc(var(--t)*100%);
-      top: calc(var(--y) - 5px);
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #fff;
-      border: 2px solid var(--takoi);
-      transform: translateX(-50%);
+    .tl-dot {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50% 46% 54% 48%;
+      background: #15101f;
+      box-shadow: 0 0 0 6px #fff;
+      transform: scale(0);
+      transition: transform .5s cubic-bezier(.2, 1.6, .4, 1), background .4s;
     }
 
-    .nd .k {
-      font: 900 .8rem monospace;
+    .tl-item.on .tl-dot {
+      transform: scale(1);
+    }
+
+    .tl:hover .tl-dot {
+      background: var(--takoi);
+    }
+
+    .tl-item.on:hover .tl-dot {
+      transform: scale(1.55);
+    }
+
+    .tl-card {
+      grid-row: 1;
+      width: 100%;
+      max-width: calc(440px * var(--z));
+      font-size: calc(.9rem * var(--z));
+      border-top: 2px solid #15101f;
+      padding-top: 16px;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1), border-color .3s, box-shadow .3s;
+      outline: none;
+    }
+
+    .tl-item.l .tl-card {
+      grid-column: 1;
+      justify-self: end;
+      text-align: right;
+    }
+
+    .tl-item.r .tl-card {
+      grid-column: 3;
+      justify-self: start;
+      text-align: left;
+    }
+
+    .tl-item.on .tl-card {
+      opacity: 1;
+      transform: none;
+    }
+
+    .tl-item.on .tl-card:hover,
+    .tl-item.on .tl-card:focus-visible {
+      transform: translateY(-6px);
+      border-color: var(--takoi);
+    }
+
+    .tl-n {
+      display: block;
+      margin-bottom: 6px;
+      font: 700 .72em var(--body);
+      letter-spacing: .2em;
       color: var(--takoi);
     }
 
-    .nd .r {
-      color: var(--gray);
-      font-weight: 500;
+    .tl-yr {
+      display: block;
+      font-family: var(--potta);
+      font-size: 4.6em;
+      line-height: .95;
+      color: #15101f;
+      transition: color .3s;
     }
 
-    .nd h3 {
-      font-size: .8rem;
-      font-weight: 900;
+    .tl-yr.long {
+      font-size: 2.8em;
+      line-height: 1.1;
+    }
+
+    .tl-card:hover .tl-yr {
+      color: var(--takoi);
+    }
+
+    .tl-card h3 {
+      margin-top: 12px;
+      font-size: 1.45em;
+      font-weight: 800;
+      letter-spacing: .01em;
+      line-height: 1.1;
       color: #000;
-      margin: 1px 0;
     }
 
-    .nd .loc {
-      font-size: .62rem;
+    .tl-loc {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 4px 12px;
+      border-radius: 30px;
+      background: var(--lav);
+      color: var(--takoi);
+      font-size: .72em;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .06em;
+      letter-spacing: .12em;
+    }
+
+    .tl-role {
+      margin-top: 12px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .tl-card p {
+      margin-top: 8px;
+      font-size: .92em;
+      line-height: 1.6;
       color: var(--gray);
     }
 
-    .nd p {
-      color: var(--gray);
-      margin-top: 4px;
-      max-width: 280px;
-    }
-
-    .nd.hl {
-      background: var(--takoi);
-      color: var(--off);
-      padding: 12px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(106, 68, 145, .35);
-    }
-
-    .nd.hl .k,
-    .nd.hl .r,
-    .nd.hl h3,
-    .nd.hl .loc,
-    .nd.hl p {
-      color: var(--off);
-    }
-
-    .nd.hl em {
-      font-style: normal;
+    .tl-card em {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 3px 12px;
+      border-radius: 20px;
       background: var(--lav2);
       color: var(--dark);
-      font-size: .6rem;
+      font-style: normal;
+      font-size: .68em;
       font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
-      margin-left: 6px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
     }
 
-    .nd.hl::before {
+    /* tarjeta destacada (empleo actual) */
+    .tl-item.hl .tl-card {
       background: var(--takoi);
+      color: var(--off);
+      border-top: 0;
+      border-radius: 20px;
+      padding: 28px 30px 26px;
+      box-shadow: 0 20px 50px rgba(106, 68, 145, .35);
+    }
+
+    .tl-item.hl .tl-card .tl-n,
+    .tl-item.hl .tl-card .tl-yr,
+    .tl-item.hl .tl-card h3,
+    .tl-item.hl .tl-card .tl-role,
+    .tl-item.hl .tl-card p {
+      color: var(--off);
+    }
+
+    .tl-item.hl .tl-card .tl-loc {
+      background: rgba(255, 255, 255, .16);
+      color: var(--off);
+    }
+
+    @media(max-width:860px) {
+      .tl {
+        padding-top: 72px;
+      }
+
+      .tl-item {
+        grid-template-columns: 44px 1fr;
+      }
+
+      .tl-dot {
+        grid-column: 1;
+      }
+
+      .tl-item.l .tl-card,
+      .tl-item.r .tl-card {
+        grid-column: 2;
+        justify-self: start;
+        text-align: left;
+        max-width: none;
+      }
+
+      .tl-zoom .zl {
+        display: none;
+      }
+
+      .tl-yr {
+        font-size: 3.6em;
+      }
     }
 
     /* ===== LOGOFOLIO ===== */
@@ -1239,37 +1407,6 @@
       .btn-contact { display: none; }
       .t-exp { right: -6px; }
       .anchor { display: none; }
-
-      /* Timeline responsive: lista vertical */
-      .tw {
-        height: auto;
-        margin: 0;
-        padding-left: 28px;
-        border-left: 2px solid #000;
-        min-width: 0;
-        overflow-x: visible;
-      }
-      .tw svg, .dot, .nd::before { display: none; }
-      .nd {
-        position: relative;
-        left: auto;
-        width: auto;
-        transform: none;
-        bottom: auto !important;
-        top: auto !important;
-        margin-bottom: 26px;
-      }
-      .nd::after {
-        content: "";
-        position: absolute;
-        left: -35px;
-        top: 4px;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #fff;
-        border: 2px solid var(--takoi);
-      }
     }
 
     @media(max-width:560px) {
@@ -1697,7 +1834,7 @@
           </div>
           <p data-en="YEARS SPENT BUILDING, REFINING, AND MOVING FORWARD — EACH STEP ADDS DEPTH TO HOW I THINK, DESIGN, AND DIRECT BRANDS.">AÑOS CONSTRUYENDO, REFINANDO Y AVANZANDO — CADA PASO AÑADE PROFUNDIDAD A LA MANERA EN QUE PIENSO, DISEÑO Y DIRIJO MARCAS.</p>
         </div>
-        <div class="tw" id="timeline"></div>
+        <div class="tl" id="timeline"></div>
         <div class="tf">
           <span data-en="ARMANDO CASTAÑO · PORTFOLIO">ARMANDO CASTAÑO · PORTAFOLIO</span><span>2026</span>
         </div>
@@ -1964,45 +2101,172 @@
       });
     }
 
-    /* ===== Render Timeline ===== */
+    /* ===== Render Timeline (tinta + zoom) ===== */
     const tlWrap = $('#timeline');
-    if (tlWrap) {
-      const total = JOBS.length;
-      const pts = JOBS.map((j, i) => {
-        const t = i / (total - 1);
-        const y = i % 4 === 0 ? 60 : i % 4 === 1 ? 200 : i % 4 === 2 ? 380 : 540;
-        return { t, y, j, i };
-      });
-      const W = 1000, H = 640;
-      const xs = pts.map(p => p.t * W);
-      const ys = pts.map(p => p.y);
-      let d = `M ${xs[0]} ${ys[0]}`;
-      for (let i = 1; i < xs.length; i++) {
-        const cx = (xs[i - 1] + xs[i]) / 2;
-        d += ` C ${cx} ${ys[i - 1]}, ${cx} ${ys[i]}, ${xs[i]} ${ys[i]}`;
-      }
+    const TL_LV = [.85, 1, 1.2, 1.4, 1.65];
+    let TL_I = 1;
+    const TL = {};
+    const SVGNS = 'http://www.w3.org/2000/svg';
+
+    function renderTimeline() {
+      if (!tlWrap) return;
+      const es = LANG === 'es';
+      const items = JOBS.map((j, i) => {
+        const place = PLACE[j[2]];
+        const hl = j[1] === '2024 - 2026';
+        const long = String(j[1]).length > 4;
+        return `
+          <article class="tl-item ${i % 2 === 0 ? 'l' : 'r'}${hl ? ' hl' : ''}">
+            <div class="tl-card" tabindex="0">
+              <span class="tl-n">Nº ${String(i + 1).padStart(2, '0')}</span>
+              <span class="tl-yr${long ? ' long' : ''}">${j[1]}</span>
+              <h3>${j[0]}</h3>
+              <div class="tl-loc">${es ? place[0] : place[1]}</div>
+              <div class="tl-role">${es ? j[3] : j[4]}</div>
+              <p>${es ? j[5] : j[6]}</p>
+              ${hl ? `<em>${es ? 'Destacado' : 'Featured'}</em>` : ''}
+            </div>
+            <span class="tl-dot"></span>
+          </article>`;
+      }).join('');
+
       tlWrap.innerHTML = `
-        <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="${d}"/></svg>
-        ${pts.map(p=>`<i class="dot" style="--t:${p.t};--y:${p.y}"></i>`).join('')}
-        ${pts.map(p=>{
-          const j = p.j;
-          const place = PLACE[j[2]];
-          const loc = LANG==='es'?place[0]:place[1];
-          const role = LANG==='es'?j[3]:j[4];
-          const desc = LANG==='es'?j[5]:j[6];
-          const hl = j[1]==='2024 - 2026' ? ' hl' : '';
-          const dir = p.i%2===0 ? 'up' : 'dn';
-          return `<div class="nd ${dir}${hl}" style="--t:${p.t};--y:${p.y}">
-            <span class="k">${j[1]}</span>
-            <h3>${j[0]}</h3>
-            <div class="loc">${loc}</div>
-            <div class="r">${role}</div>
-            <p>${desc}</p>
-            ${hl?'<em>Destacado</em>':''}
-          </div>`;
-        }).join('')}
-      `;
+        <div class="tl-bar">
+          <div class="tl-zoom" role="group" aria-label="Zoom">
+            <span class="zl">Zoom</span>
+            <button type="button" data-z="-1" aria-label="${es ? 'Reducir texto' : 'Smaller text'}">−</button>
+            <output></output>
+            <button type="button" data-z="1" aria-label="${es ? 'Ampliar texto' : 'Larger text'}">+</button>
+          </div>
+        </div>
+        <svg class="tl-ink" aria-hidden="true">
+          <defs>
+            <filter id="rough" x="-5%" y="-2%" width="110%" height="104%">
+              <feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="4" result="n"/>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="3"/>
+            </filter>
+            <mask id="inkMask" maskUnits="userSpaceOnUse" x="-200" y="-200" width="4000" height="20000">
+              <path id="maskPath" fill="none" stroke="#fff" stroke-width="44" stroke-linecap="round"/>
+            </mask>
+          </defs>
+          <g mask="url(#inkMask)"><path class="ink-ribbon" id="ribbon" filter="url(#rough)"/></g>
+          <g id="nib" opacity="0"><g transform="rotate(30)">
+            <path class="nib-body" d="M-4 -30 L-7 -70 Q0 -76 9 -70 L6 -30 Z"/>
+            <path class="nib-tip" d="M0 0 L-5 -15 L-4 -31 L7 -31 L6 -15 Z"/>
+            <path d="M.5 -2 L.5 -14" stroke="#fff" stroke-width=".9" fill="none"/>
+            <circle cx=".5" cy="-17" r="1.6" fill="#fff"/>
+          </g></g>
+        </svg>
+        <div class="tl-list">${items}</div>`;
+
+      initTimeline();
     }
+
+    function initTimeline() {
+      const wrap = tlWrap;
+      if (TL.ro) TL.ro.disconnect();
+      if (TL.onScroll) {
+        removeEventListener('scroll', TL.onScroll);
+        removeEventListener('resize', TL.onScroll);
+      }
+      cancelAnimationFrame(TL.raf || 0);
+
+      const ribbon = $('#ribbon', wrap), maskPath = $('#maskPath', wrap), nib = $('#nib', wrap), svg = $('.tl-ink', wrap);
+      const itemEls = $$('.tl-item', wrap), dots = $$('.tl-dot', wrap);
+      const out = $('.tl-zoom output', wrap), btns = $$('.tl-zoom button', wrap);
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let len = 0, probe = null, ys = [], cur = reduce ? 1 : 0, target = cur;
+
+      function applyZoom() {
+        wrap.style.setProperty('--z', TL_LV[TL_I]);
+        out.textContent = Math.round(TL_LV[TL_I] * 100) + '%';
+        btns[0].disabled = TL_I === 0;
+        btns[1].disabled = TL_I === TL_LV.length - 1;
+      }
+      btns.forEach(b => b.addEventListener('click', () => {
+        TL_I = Math.max(0, Math.min(TL_LV.length - 1, TL_I + (+b.dataset.z)));
+        applyZoom();
+      }));
+      applyZoom();
+
+      /* Construye la cinta de tinta (pluma de punta ancha) siguiendo los puntos */
+      function build() {
+        const r = wrap.getBoundingClientRect();
+        const W = r.width, H = r.height;
+        svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        const mobile = innerWidth <= 860;
+        const pts = dots.map(d => {
+          const b = d.getBoundingClientRect();
+          return [b.left + b.width / 2 - r.left, b.top + b.height / 2 - r.top];
+        });
+        ys = pts.map(p => p[1]);
+        const f = pts[0], l = pts[pts.length - 1];
+        const all = [[f[0], f[1] - 90], ...pts, [l[0], l[1] + 120]];
+        const amp = mobile ? 9 : 62;
+        let d = `M${all[0][0]} ${all[0][1]}`;
+        for (let i = 1; i < all.length; i++) {
+          const [x0, y0] = all[i - 1], [x1, y1] = all[i];
+          const s = i % 2 ? 1 : -1, dy = y1 - y0;
+          d += ` C${x0 + s * amp} ${y0 + dy * .32} ${x1 + s * amp} ${y1 - dy * .32} ${x1} ${y1}`;
+        }
+        probe = document.createElementNS(SVGNS, 'path');
+        probe.setAttribute('d', d);
+        len = probe.getTotalLength();
+
+        const step = 3, n = Math.ceil(len / step);
+        const nibAng = -Math.PI / 4;           // ángulo de la punta de la pluma
+        const L = [], R = [];
+        for (let k = 0; k <= n; k++) {
+          const s = Math.min(len, k * step);
+          const p = probe.getPointAtLength(s), q = probe.getPointAtLength(Math.min(len, s + 1.5)), o = probe.getPointAtLength(Math.max(0, s - 1.5));
+          const ang = Math.atan2(q.y - o.y, q.x - o.x);
+          const press = .75 + .25 * Math.sin(s / 41) + .12 * Math.sin(s / 13 + 1.3);
+          const taper = Math.max(.12, Math.min(1, s / 70, (len - s) / 110));
+          const w = Math.max(1, (1.6 + 5.4 * Math.abs(Math.sin(ang - nibAng))) * press * taper);
+          const nx = -Math.sin(ang), ny = Math.cos(ang);
+          L.push(`${(p.x + nx * w / 2).toFixed(1)} ${(p.y + ny * w / 2).toFixed(1)}`);
+          R.push(`${(p.x - nx * w / 2).toFixed(1)} ${(p.y - ny * w / 2).toFixed(1)}`);
+        }
+        ribbon.setAttribute('d', 'M' + L.join('L') + 'L' + R.reverse().join('L') + 'Z');
+        maskPath.setAttribute('d', d);
+        maskPath.style.strokeDasharray = `${len} ${len + 20}`;
+        paint(cur);
+      }
+
+      function paint(p) {
+        if (!probe) return;
+        maskPath.style.strokeDashoffset = len * (1 - p);
+        const pt = probe.getPointAtLength(len * p);
+        nib.setAttribute('transform', `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)})`);
+        nib.setAttribute('opacity', p > .002 && !reduce ? 1 : 0);
+        itemEls.forEach((el, i) => el.classList.toggle('on', reduce || ys[i] <= pt.y + 12));
+      }
+
+      function measure() {
+        const r = wrap.getBoundingClientRect();
+        target = reduce ? 1 : Math.max(0, Math.min(1, (innerHeight * .62 - r.top) / r.height));
+      }
+      function frame() {
+        cur += (target - cur) * .1;
+        if (Math.abs(target - cur) < .0004) cur = target;
+        paint(cur);
+        TL.raf = cur !== target ? requestAnimationFrame(frame) : 0;
+      }
+      TL.onScroll = () => { measure(); if (!TL.raf) TL.raf = requestAnimationFrame(frame); };
+      addEventListener('scroll', TL.onScroll, { passive: true });
+      addEventListener('resize', TL.onScroll);
+
+      let rb = 0;
+      TL.ro = new ResizeObserver(() => { cancelAnimationFrame(rb); rb = requestAnimationFrame(() => { build(); TL.onScroll(); }); });
+      TL.ro.observe(wrap);
+
+      build();
+      measure();
+      cur = target; paint(cur);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { build(); TL.onScroll(); });
+    }
+
+    renderTimeline();
 
     /* ===== Render Logofolio (Carrusel) ===== */
     const tabsEl = document.getElementById('folderTabs');
@@ -2181,33 +2445,7 @@
           });
         });
       }
-      if (tlWrap) {
-        const total = JOBS.length;
-        const pts = JOBS.map((j, i) => ({ t: i / (total - 1), y: i % 4 === 0 ? 60 : i % 4 === 1 ? 200 : i % 4 === 2 ? 380 : 540, j, i }));
-        const W = 1000, H = 640;
-        const xs = pts.map(p => p.t * W), ys = pts.map(p => p.y);
-        let d = `M ${xs[0]} ${ys[0]}`;
-        for (let i = 1; i < xs.length; i++) {
-          const cx = (xs[i - 1] + xs[i]) / 2;
-          d += ` C ${cx} ${ys[i-1]}, ${cx} ${ys[i]}, ${xs[i]} ${ys[i]}`;
-        }
-        tlWrap.innerHTML = `
-          <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="${d}"/></svg>
-          ${pts.map(p=>`<i class="dot" style="--t:${p.t};--y:${p.y}"></i>`).join('')}
-          ${pts.map(p=>{
-            const j = p.j, place = PLACE[j[2]];
-            const loc = LANG === 'es' ? place[0] : place[1];
-            const role = LANG === 'es' ? j[3] : j[4];
-            const desc = LANG === 'es' ? j[5] : j[6];
-            const hl = j[1] === '2024 - 2026' ? ' hl' : '';
-            const dir = p.i%2===0 ? 'up' : 'dn';
-            return `<div class="nd ${dir}${hl}" style="--t:${p.t};--y:${p.y}">
-              <span class="k">${j[1]}</span><h3>${j[0]}</h3>
-              <div class="loc">${loc}</div><div class="r">${role}</div>
-              <p>${desc}</p>${hl?'<em>Destacado</em>':''}
-            </div>`;
-          }).join('')}`;
-      }
+      renderTimeline();
     }
 
     /* ===== Burger ===== */
@@ -2226,15 +2464,6 @@
         banner.style.setProperty('--mx', x);
         banner.style.setProperty('--my', y);
       });
-    }
-
-    /* ===== Timeline on scroll ===== */
-    const tw = $('.tw');
-    if (tw) {
-      const io = new IntersectionObserver(es => {
-        es.forEach(e => { if (e.isIntersecting) tw.classList.add('in'); });
-      }, { threshold: .2 });
-      io.observe(tw);
     }
 
     /* ===== Formulario (demo) ===== */
