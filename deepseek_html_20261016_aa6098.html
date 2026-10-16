@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Armando Castaño · Director Creativo y Director de Arte</title>
+<meta name="description" content="Portafolio de Armando Castaño: Director Creativo y Art Director con más de 10 años de experiencia en branding, diseño editorial y motion graphics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Potta+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#1a0f2e;--takoi:#6A4491;--lav:#E8E3EE;--off:#F5F0E8;--lav2:#E2DCEA;--mid:#9B7FB3;--gray:#555;--bg:#F8F5FB;
+  --potta:"Potta One",cursive;--body:"Poppins",system-ui,sans-serif;--cond:"Potta One",cursive
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--body);background:var(--bg);color:#000;-webkit-font-smoothing:antialiased;line-height:1.5}
+::selection{background:var(--takoi);color:var(--off)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1152px;margin:0 auto;padding:0 24px}
+
+/* ===== BOTONES UNIFICADOS ===== */
+.pill,#lang,form button,.btn-contact{
+  font-family:"Poppins",system-ui,sans-serif;
+  font-weight:600;
+  text-transform:lowercase;
+  letter-spacing:0;
+  font-size:.85rem;
+  line-height:1;
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:46px;
+  padding:0 20px;
+  border-radius:30px;
+  transition:.25s;
+  background:transparent;
+  border:1.5px solid rgba(245,240,232,.6);
+  color:var(--off);
+  cursor:pointer;
+}
+.pill{width:220px}
+.pill:hover,.btn-contact:hover,#lang:hover{background:rgba(245,240,232,.12);border-color:var(--off)}
+.pill.sel{background:var(--takoi);color:var(--off);border:2px solid var(--takoi)}
+.pill.sel:hover{background:var(--dark);border-color:var(--dark)}
+.pill.outline{border:2px solid var(--takoi);color:var(--takoi);background:transparent}
+.pill.outline:hover{background:var(--takoi);color:#fff}
+.pill.more{margin-top:64px;border:2px solid var(--takoi);color:var(--takoi);background:transparent}
+.pill.more:hover{background:var(--takoi);color:#fff}
+.pill.ghost{align-self:flex-start;border:2px solid #000;color:#000;background:transparent}
+.pill.ghost:hover{background:#000;color:var(--off)}
+.pill.cta{position:relative;z-index:2;margin-top:48px;background:transparent;color:var(--off);border:1.5px solid rgba(245,240,232,.6);animation:tagin .6s 2.4s both}
+.pill.cta:hover{background:rgba(245,240,232,.12);border-color:var(--off)}
+
+/* ===== NAV ===== */
+header{position:fixed;inset:0 0 auto;z-index:100;background:var(--dark);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.nav{height:80px;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1280px;margin:auto;padding:0 28px}
+.brand{display:flex;flex-direction:column;color:var(--off)}
+.brand b{font-size:.85rem;letter-spacing:.07em;font-weight:700}
+.brand small{font-size:.68rem;opacity:.75}
+.brand:hover b{color:var(--lav2)}
+nav ul{display:flex;gap:26px;list-style:none}
+nav a{position:relative;color:var(--off);font-size:.82rem;font-weight:700;padding:4px 0;white-space:nowrap}
+nav a::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;background:#fff;transition:width .25s}
+nav a:hover::after{width:100%}
+.right{display:flex;align-items:center;gap:12px}
+#lang{width:130px;height:42px;background:transparent;color:var(--off);border:1.5px solid rgba(245,240,232,.6)}
+#lang:hover{background:rgba(245,240,232,.12);border-color:var(--off)}
+#lang span{opacity:.5}#lang span.on{opacity:1}
+.btn-contact{width:130px;height:42px;padding:0}
+#burger{display:none;background:none;border:0;color:#fff;font-size:1.5rem;cursor:pointer}
+
+/* ===== HERO ===== */
+#inicio{position:relative;min-height:100vh;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:110px 16px 56px;overflow:hidden}
+.mega{position:absolute;inset:0;display:grid;place-items:center;font-weight:900;font-size:clamp(5rem,18vw,15rem);letter-spacing:-.05em;color:rgba(255,255,255,.035);white-space:nowrap;pointer-events:none;user-select:none}
+.halo{position:absolute;width:min(620px,90vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%);animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.12);opacity:.7}}
+.banner{--mx:0;--my:0;position:relative;z-index:2;width:min(760px,92vw);padding:14px}
+.frame{position:absolute;inset:0;border:1px solid rgba(255,255,255,.5);animation:frame 1s .1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes frame{from{clip-path:inset(0 100% 100% 0)}to{clip-path:inset(0)}}
+.h{position:absolute;width:12px;height:12px;background:var(--lav2);border:2px solid var(--takoi);animation:pop .4s both,blink 2.4s 2s infinite}
+@keyframes pop{from{transform:scale(0)}}
+@keyframes blink{45%,55%{box-shadow:0 0 14px 3px rgba(226,220,234,.7);transform:scale(1.25)}}
+.h1{top:6px;left:6px}.h2{top:6px;left:calc(50% - 6px);animation-delay:.2s,2.1s}.h3{top:6px;right:6px;animation-delay:.3s,2.2s}
+.h4{top:calc(50% - 6px);left:6px;animation-delay:.4s,2.3s}.h5{top:calc(50% - 6px);right:6px;animation-delay:.5s,2.4s}
+.h6{bottom:6px;left:6px;animation-delay:.6s,2.5s}.h7{bottom:6px;left:calc(50% - 6px);animation-delay:.7s,2.6s}.h8{bottom:6px;right:6px;animation-delay:.8s,2.7s}
+.tag{position:absolute;z-index:5;background:var(--lav2);color:var(--dark);font-weight:700;font-size:.85rem;text-transform:uppercase;padding:.4rem 1rem;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.35);animation:tagin .5s 1.2s both,float 4s 2s ease-in-out infinite}
+.t-role{top:-18px;left:-20px}.t-exp{top:30%;right:-34px;animation-delay:1.5s,2.3s}
+.arrow{position:absolute;z-index:5;width:70px;fill:none;stroke:var(--lav2);stroke-width:2;stroke-linecap:round;stroke-dasharray:120;animation:ar 1s 1.7s both}
+@keyframes ar{from{stroke-dashoffset:120}}
+.a1{top:14px;left:70px}.a2{top:calc(30% + 30px);right:-4px;transform:scaleX(-1) rotate(20deg)}
+@keyframes tagin{from{opacity:0;transform:translateY(10px) scale(.8)}}
+@keyframes float{50%{transform:translateY(-5px)}}
+.anchor{position:absolute;right:-18px;bottom:-22px;z-index:5;display:flex;gap:2px;align-items:flex-start;animation:drift 7s 2s ease-in-out infinite}
+.anchor svg{width:24px;fill:#000;stroke:#fff;stroke-width:1.5;transform:rotate(-12deg);filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+@keyframes drift{25%{transform:translate(-90px,-70px)}50%{transform:translate(-200px,-30px)}75%{transform:translate(-60px,10px)}}
+.stage{position:relative;aspect-ratio:16/9;background:#150a26;overflow:hidden;display:flex;align-items:center;gap:2%;padding:0 5% 0 3%}
+.stage::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(155,127,179,.12)1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,rgba(155,127,179,.12)1px,transparent 1px) 0 0/28px 28px;animation:grid 8s linear infinite}
+@keyframes grid{to{background-position:0 28px,28px 0}}
+.stage::after{content:"";position:absolute;top:0;bottom:0;width:18%;left:-25%;background:linear-gradient(90deg,transparent,rgba(226,220,234,.14),transparent);animation:scan 5s 2.5s ease-in-out infinite}
+@keyframes scan{to{left:115%}}
+.poly{position:absolute;left:4%;top:8%;width:44%;opacity:.55;animation:spin 30s linear infinite;transform-origin:50% 50%}
+@keyframes spin{to{transform:rotate(360deg)}}
+.photo{position:relative;z-index:2;width:36%;flex:0 0 36%;align-self:flex-end;transform:translate(calc(var(--mx)*14px),calc(var(--my)*8px));transition:transform .2s;animation:wipe 1.2s .5s cubic-bezier(.2,.8,.2,1) both}
+.photo img{width:100%;display:block;filter:drop-shadow(0 0 22px rgba(160,120,255,.55))}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0);opacity:0}}
+.txt{position:relative;z-index:3;font-family:var(--cond);line-height:.86;color:var(--off);transform:translate(calc(var(--mx)*-10px),calc(var(--my)*-6px));transition:transform .2s}
+.txt h1{font:inherit}
+.ln{display:block;position:relative;font-size:clamp(1.8rem,5.6vw,4rem);white-space:nowrap}
+.ln.sub{font-size:clamp(.95rem,2.7vw,1.9rem);margin-top:.12em}
+.ln .c{display:inline-block;animation:letter .6s calc(1s + var(--i)*.05s) cubic-bezier(.2,.9,.3,1.4) both}
+@keyframes letter{from{opacity:0;transform:translateY(60%) rotate(8deg) scale(.4)}}
+.ln::before,.ln::after{content:attr(data-t);position:absolute;inset:0;opacity:0;pointer-events:none}
+.ln::before{color:var(--lav2);animation:g1 5s 3s infinite}
+.ln::after{color:var(--mid);animation:g2 5s 3s infinite}
+.sub::after{animation-name:g2}
+@keyframes g1{0%,90%,100%{opacity:0}92%{opacity:.85;transform:translate(-4px,1px);clip-path:inset(10% 0 55% 0)}95%{opacity:.85;transform:translate(3px,-1px);clip-path:inset(60% 0 8% 0)}}
+@keyframes g2{0%,91%,100%{opacity:0}93%{opacity:.85;transform:translate(4px,-1px);clip-path:inset(50% 0 20% 0)}96%{opacity:.85;transform:translate(-3px,1px);clip-path:inset(5% 0 70% 0)}}
+.strike{position:absolute;left:-3%;right:-3%;top:56%;height:4px;background:var(--lav2);box-shadow:0 0 10px rgba(226,220,234,.6);transform-origin:left;animation:draw .7s 2.1s cubic-bezier(.7,0,.2,1) both,wob 5s 3s infinite}
+@keyframes draw{from{transform:scaleX(0)}}
+@keyframes wob{92%,100%{transform:none}94%{transform:translateY(-3px) skewX(-20deg)}}
+
+/* ===== ABOUT ===== */
+#sobre-mi{padding:96px 0}
+.about{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:center}
+.avatar{justify-self:center;position:relative;width:min(340px,86vw);aspect-ratio:4/5;margin:14px}
+.avatar::before{content:"";position:absolute;left:50%;top:50%;width:112%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:3px solid var(--mid);opacity:.55}
+.avatar img{position:relative;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:22px;box-shadow:0 25px 50px rgba(106,68,145,.25)}
+.who{position:absolute;left:16px;bottom:16px;display:inline-flex;gap:6px;align-items:center;background:rgba(40,10,30,.78);color:#fff;font-size:.8rem;padding:8px 16px;border-radius:30px;backdrop-filter:blur(4px)}
+.who span{opacity:.85}
+.plate{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:rgba(245,240,232,.95);padding:5px 14px;text-align:center;font-size:.62rem;white-space:nowrap}
+.plate b{display:block;font-size:.68rem}
+.avatar .tag{position:absolute;z-index:5;background:var(--lav2);color:var(--dark);font-weight:700;font-size:.85rem;text-transform:uppercase;padding:.4rem 1rem;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,.35);animation:tagin .5s 1.2s both,float 4s 2s ease-in-out infinite}
+.about .col{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.2em;color:var(--gray);text-transform:uppercase}
+h2.t{font-family:var(--potta);font-weight:400;color:var(--takoi);font-size:clamp(1.9rem,4vw,2.5rem);line-height:1.15}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{background:var(--lav);color:var(--takoi);font-size:.78rem;font-weight:700;padding:6px 14px;border-radius:30px}
+
+/* ===== PROJECTS ===== */
+#proyectos{background:var(--lav);padding:96px 0;text-align:center}
+#proyectos .sub{color:var(--gray);margin:8px 0 56px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;text-align:left}
+.card{background:rgba(255,255,255,.65);backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,.8);border-radius:20px;padding:26px;box-shadow:0 8px 32px rgba(106,68,145,.08);display:flex;flex-direction:column;justify-content:space-between;transition:.3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(106,68,145,.16)}
+.card:last-child{grid-column:1/-1;max-width:560px;justify-self:center;width:100%}
+.mock{aspect-ratio:16/10;border-radius:12px;background:#fff radial-gradient(#e4dfe9 1.5px,transparent 1.5px) 0 0/16px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--gray);box-shadow:inset 0 2px 8px rgba(0,0,0,.05)}
+.mock.has-img{position:relative;display:block;width:100%;padding:0;border:0;overflow:hidden;cursor:zoom-in;background:#fff}
+.mock.has-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.mock.has-img:hover img{transform:scale(1.05)}
+.mock .cnt{position:absolute;right:10px;bottom:10px;background:rgba(26,15,46,.85);color:#fff;font:700 .7rem var(--body);padding:5px 12px;border-radius:30px}
+.mock b{font:500 .78rem var(--body);text-transform:uppercase;letter-spacing:.06em}
+.mock small{font-size:10px;color:var(--gray);margin-top:4px}
+.card h3{font-size:1.1rem;margin-top:20px;color:#000}
+.card .m{font-size:.75rem;color:var(--gray);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.card p{font-size:.82rem;margin:6px 0 20px;color:rgba(0,0,0,.75)}
+
+/* ===== TIMELINE ===== */
+#trayectoria{background:#fff;padding:96px 0;overflow:hidden}
+.th{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid #eee;margin-bottom:56px}
+.th h2{font-family:var(--potta);font-weight:400;color:#1a1a1a;line-height:1;font-size:clamp(3rem,9.5vw,8rem)}
+.th p{max-width:380px;font-size:.7rem;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.06em}
+.tf{margin-top:40px;display:flex;justify-content:space-between;font-size:.7rem;color:var(--gray);letter-spacing:.2em}
+.tw{position:relative;height:640px;margin:0 -8px}
+.tw svg{position:absolute;inset:0;width:100%;height:100%}
+.tw path{fill:none;stroke:#000;stroke-width:2;stroke-linecap:round;stroke-dasharray:3000;stroke-dashoffset:3000;transition:stroke-dashoffset 3.5s ease,stroke .3s}
+.tw.in path{stroke-dashoffset:0}
+.tw:hover path{stroke:var(--takoi)}
+.nd{position:absolute;left:calc(var(--t)*100%);width:176px;transform:translateX(-50%);font-size:.7rem;line-height:1.4}
+.nd.up{bottom:calc(640px - var(--y) + 34px)}
+.nd.dn{top:calc(var(--y) + 34px)}
+.nd::before{content:"";position:absolute;left:50%;width:1px;background:#bbb;height:28px}
+.nd.up::before{bottom:-31px}
+.nd.dn::before{top:-31px}
+.dot{position:absolute;left:calc(var(--t)*100%);top:calc(var(--y) - 5px);width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--takoi);transform:translateX(-50%)}
+.nd .k{font:900 .8rem monospace;color:var(--takoi)}
+.nd .r{color:var(--gray);font-weight:500}
+.nd h3{font-size:.8rem;font-weight:900;color:#000;margin:1px 0}
+.nd .loc{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray)}
+.nd p{color:var(--gray);margin-top:4px;max-width:280px}
+.nd.hl{background:var(--takoi);color:var(--off);padding:12px;border-radius:12px;box-shadow:0 10px 30px rgba(106,68,145,.35)}
+.nd.hl .k,.nd.hl .r,.nd.hl h3,.nd.hl .loc,.nd.hl p{color:var(--off)}
+.nd.hl em{font-style:normal;background:var(--lav2);color:var(--dark);font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px}
+.nd.hl::before{background:var(--takoi)}
+
+/* ===== LOGOFOLIO ===== */
+#logofolio{padding:96px 0;text-align:center;background:#fff}
+#logofolio p{color:var(--gray);margin:8px 0 40px}
+.logos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:720px;margin:auto}
+.logos a{background:#fff;border:2px solid var(--takoi);border-radius:20px;padding:.6rem 1.5rem;font-weight:700;color:var(--takoi);transition:.25s;display:flex;align-items:center;justify-content:center;min-height:60px}
+.logos a:hover{background:var(--takoi);color:var(--off);transform:translateY(-3px)}
+.logo-item{aspect-ratio:16/10;transition:.25s;background:none;border:2px solid var(--takoi);border-radius:20px;padding:0;overflow:hidden;cursor:zoom-in}
+.logo-item:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(106,68,145,.25)}
+.logo-item img{width:100%;height:100%;object-fit:cover}
+
+/* ===== CONTACT ===== */
+#contacto{background:#fff;padding:96px 0;text-align:center}
+#contacto>.wrap>p{color:var(--gray);margin:8px 0 36px}
+form{max-width:600px;margin:auto;text-align:left;display:grid;gap:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-size:.78rem;font-weight:700;margin-bottom:4px}
+input,select,textarea{width:100%;padding:12px 14px;border:1px solid #cfc6dc;border-radius:12px;font:inherit;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--takoi);border-color:transparent}
+form button{background:var(--takoi);color:var(--off);border:0;border-radius:30px;width:220px;height:46px;padding:0;justify-self:center;cursor:pointer;transition:.25s;text-transform:lowercase;font-weight:600}
+form button:hover{background:var(--dark)}
+
+/* ===== FOOTER ===== */
+footer{background:var(--dark);color:var(--off);text-align:center;padding:36px 16px;font-size:.85rem}
+footer a:hover{color:var(--lav2)}
+footer p{color:rgba(245,240,232,.5);font-size:.7rem;margin-top:10px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1100px){nav ul{gap:16px}nav a{font-size:.76rem}.brand small{display:none}#lang,.btn-contact{width:110px}}
+@media(max-width:860px){
+  #burger{display:block}
+  nav{position:absolute;top:80px;left:0;right:0;background:var(--dark);display:none}
+  nav.open{display:block}
+  nav ul{flex-direction:column;gap:0;padding:8px 28px 20px}
+  nav a{display:block;padding:12px 0}
+  .about,.grid{grid-template-columns:1fr}
+  .about{gap:40px}
+  .btn-contact{display:none}
+  .t-exp{right:-6px}
+  .anchor{display:none}
+  .tw{height:auto;margin:0;padding-left:28px;border-left:2px solid #000}
+  .tw svg,.dot,.nd::before{display:none}
+  .nd{position:relative;left:auto;width:auto;transform:none;bottom:auto!important;top:auto!important;margin-bottom:26px}
+  .nd::after{content:"";position:absolute;left:-35px;top:4px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--takoi)}
+}
+@media(max-width:560px){.two,.logos{grid-template-columns:1fr}.logos{grid-template-columns:1fr 1fr}.tf{flex-direction:column;gap:6px}}
+@media(prefers-reduced-motion:reduce){*,::before,::after{animation:none!important;transition:none!important}}
+
+/* ===== LIGHTBOX ===== */
+#lb{position:fixed;inset:0;z-index:1000;background:rgba(15,8,28,.94);display:grid;grid-template-columns:64px 1fr 64px;grid-template-rows:1fr auto;align-items:center;padding:16px;gap:8px}
+#lb[hidden]{display:none}
+#lb figure{margin:0;min-height:0;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+#lb figure img{max-width:100%;max-height:calc(100vh - 170px);object-fit:contain;border-radius:8px}
+#lb figcaption{color:#e2dcea;font-size:.85rem}
+#lb button{background:rgba(255,255,255,.12);color:#fff;border:0;cursor:pointer;border-radius:50%;width:48px;height:48px;font-size:1.8rem;line-height:1}
+#lb button:hover{background:rgba(255,255,255,.28)}
+#lb .x{position:absolute;top:14px;right:14px;z-index:2}
+#lb .th{grid-column:1/-1;display:flex;gap:8px;justify-content:center;overflow-x:auto;padding:4px}
+#lb .th button{width:64px;height:48px;border-radius:6px;padding:0;overflow:hidden;opacity:.55;outline:2px solid transparent}
+#lb .th button.on{opacity:1;outline-color:#9B7FB3}
+#lb .th img{width:100%;height:100%;object-fit:cover}
+@media(max-width:600px){#lb{grid-template-columns:40px 1fr 40px;padding:8px}#lb .pv,#lb .nx{width:36px;height:36px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="#inicio"><b>ARMANDO CASTAÑO</b><small data-en="Creative Director & Art Director">Director Creativo y Director de Arte</small></a>
+    <nav id="menu">
+      <ul>
+        <li><a href="#inicio" data-en="Home">Inicio</a></li>
+        <li><a href="#sobre-mi" data-en="About me">Sobre mí</a></li>
+        <li><a href="#proyectos" data-en="Projects">Proyectos</a></li>
+        <li><a href="#trayectoria" data-en="Career">Trayectoria</a></li>
+        <li><a href="#logofolio" data-en="Logofolio">Logofolio</a></li>
+        <li><a href="#contacto" data-en="Let's start working together">Empecemos a trabajar juntos</a></li>
+      </ul>
+    </nav>
+    <div class="right">
+      <button id="lang" aria-label="Cambiar idioma / Switch language"><span class="on" id="l-es">ES</span> | <span id="l-en">EN</span></button>
+      <a class="pill btn-contact" href="#contacto" data-en="Contact">Contacto</a>
+      <button id="burger" aria-label="Menú">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section id="inicio">
+  <div class="mega" aria-hidden="true">PORTAFOLIO</div>
+  <div class="halo"></div>
+  <div class="banner" id="banner">
+    <div class="frame"></div>
+    <i class="h h1"></i><i class="h h2"></i><i class="h h3"></i><i class="h h4"></i>
+    <i class="h h5"></i><i class="h h6"></i><i class="h h7"></i><i class="h h8"></i>
+    <span class="tag t-role" data-en="Art Director">Director de Arte</span>
+    <svg class="arrow a1" viewBox="0 0 70 60" aria-hidden="true"><path d="M2 6C34 2 58 20 64 50M64 50l-9-9M64 50l8-10"/></svg>
+    <span class="tag t-exp" data-en="10+ Years">10+ Años</span>
+    <svg class="arrow a2" viewBox="0 0 70 60" aria-hidden="true"><path d="M2 6C34 2 58 20 64 50M64 50l-9-9M64 50l8-10"/></svg>
+    <div class="anchor">
+      <svg viewBox="0 0 24 24"><path d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 5.428v-20.549z"/></svg>
+    </div>
+    <div class="stage">
+      <svg class="poly" viewBox="0 0 200 200" fill="none" stroke="#a98cff" stroke-width=".6" aria-hidden="true">
+        <polygon points="100,10 180,60 160,150 100,190 40,150 20,60"/>
+        <polygon points="100,40 150,70 135,130 100,160 65,130 50,70"/>
+        <path d="M100,10L100,190M20,60L160,150M180,60L40,150"/>
+      </svg>
+      <div class="photo">
+        <img src="https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/338645f70219daeb0424da5f0ba17741557be422/jorge%20%20imagen.webp" alt="Armando Castaño">
+      </div>
+      <div class="txt">
+        <h1 id="kin" aria-label="Armando Castaño, Director Creativo">
+          <span class="ln" data-t="ARMANDO">ARMANDO</span>
+          <span class="ln" data-t="CASTAÑO">CASTAÑO</span>
+          <span class="ln sub" id="role" data-t="DIRECTOR CREATIVO" data-en="CREATIVE DIRECTOR">DIRECTOR CREATIVO</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+  <a class="pill cta" href="#proyectos" data-en="View projects">Ver proyectos</a>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre-mi"><div class="wrap about">
+  <div class="avatar">
+    <img src="https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/338645f70219daeb0424da5f0ba17741557be422/jorge%20%20imagen.webp" alt="Armando Castaño">
+    <span class="who"><b>Armando</b><span data-en="– Creative Director">– Director Creativo</span></span>
+  </div>
+  <div class="col">
+    <span class="eyebrow" data-en="CREATIVE DIRECTOR & ART DIRECTOR">DIRECTOR CREATIVO Y DIRECTOR DE ARTE</span>
+    <h2 class="t" data-en="Creative Director & Visual Designer">Director Creativo y Diseñador Visual</h2>
+    <p data-en="Over 10 years of experience creating comprehensive visual solutions. My background in Digital Animation allows me to merge branding, editorial design, motion graphics, and illustration to elevate brand identity.">Más de 10 años de experiencia creando soluciones visuales integrales. Mi formación en Animación Digital me permite combinar branding, diseño editorial, motion graphics e ilustración para fortalecer la identidad de las marcas.</p>
+    <div class="chips">
+      <span data-en="Branding">Marca y branding</span><span data-en="Visual Identity">Identidad Visual</span><span data-en="Editorial Design">Diseño Editorial</span><span data-en="Motion Graphics">Gráficos en movimiento</span>
+      <span data-en="Digital Illustration">Ilustración Digital</span><span data-en="Web Design">Diseño Web</span><span data-en="Corporate Comms">Comunicación Corporativa</span><span data-en="Creative Direction">Dirección Creativa</span>
+    </div>
+    <a class="pill outline" href="mailto:armando.takoi.artist@gmail.com?subject=Solicitud%20de%20CV%20-%20Armando%20Casta%C3%B1o"><span data-en="Download CV">Descargar CV</span></a>
+  </div>
+</div></section>
+
+<!-- PROYECTOS -->
+<section id="proyectos"><div class="wrap">
+  <a class="pill sel" href="#proyectos" data-en="Selected work">Trabajos seleccionados</a>
+  <h2 class="t" style="margin-top:20px" data-en="Featured Projects">Proyectos Destacados</h2>
+  <p class="sub" data-en="The best of my recent work">Lo mejor de mi trabajo reciente</p>
+  <div class="grid" id="projects"></div>
+  <a class="pill more" href="#contacto" data-en="View all projects">Ver todos los proyectos</a>
+</div></section>
+
+<!-- TRAYECTORIA -->
+<section id="trayectoria"><div class="wrap">
+  <div class="th">
+    <div><span class="eyebrow" data-en="ARMANDO CASTAÑO · PROFESSIONAL CAREER">ARMANDO CASTAÑO · RECORRIDO PROFESIONAL</span><h2 data-en="CAREER PATH">TRAYECTORIA</h2></div>
+    <p data-en="YEARS SPENT BUILDING, REFINING, AND MOVING FORWARD — EACH STEP ADDS DEPTH TO HOW I THINK, DESIGN, AND DIRECT BRANDS.">AÑOS CONSTRUYENDO, REFINANDO Y AVANZANDO — CADA PASO AÑADE PROFUNDIDAD A LA MANERA EN QUE PIENSO, DISEÑO Y DIRIJO MARCAS.</p>
+  </div>
+  <div class="tw" id="timeline"></div>
+  <div class="tf"><span data-en="ARMANDO CASTAÑO · PORTFOLIO">ARMANDO CASTAÑO · PORTAFOLIO</span><span>2026</span></div>
+</div></section>
+
+<!-- LOGOFOLIO -->
+<section id="logofolio"><div class="wrap">
+  <h2 class="t">Logofolio</h2>
+  <p data-en="A selection of logos created for various brands">Una selección de logotipos creados para diversas marcas</p>
+  <div class="logos" id="logos"></div>
+</div></section>
+
+<!-- CONTACTO -->
+<section id="contacto"><div class="wrap">
+  <h2 class="t" data-en="Let's work together?">¿Trabajamos juntos?</h2>
+  <p data-en="I'm available for freelance projects and full-time opportunities.">Estoy disponible para proyectos freelance y oportunidades a tiempo completo.</p>
+  <form id="form">
+    <div class="two">
+      <div><label data-en="Name *">Nombre *</label><input name="n" required placeholder="Tu nombre" data-en-ph="Your name"></div>
+      <div><label data-en="Company">Empresa</label><input name="c" placeholder="Nombre de empresa" data-en-ph="Company name"></div>
+    </div>
+    <div class="two">
+      <div><label data-en="Phone">Teléfono</label><input name="t" type="tel" placeholder="+57 ..."></div>
+      <div><label data-en="Email *">Correo electrónico *</label><input name="e" type="email" required placeholder="correo@ejemplo.com" data-en-ph="you@example.com"></div>
+    </div>
+    <div><label data-en="Reason for contact">Motivo de contacto</label>
+      <select name="r">
+        <option value="Freelance" data-en="Freelance">Freelance</option>
+        <option value="Contrato laboral" data-en="Employment contract">Contrato laboral</option>
+        <option value="Prestación de servicios" data-en="Service agreement">Prestación de servicios</option>
+        <option value="Otro" data-en="Other">Otro</option>
+      </select>
+    </div>
+    <div><label data-en="I want to work with your company *">Quiero trabajar con su empresa *</label><textarea name="m" rows="4" required placeholder="Cuéntanos qué necesitas y cómo podemos colaborar..." data-en-ph="Tell us what you need and how we can collaborate..."></textarea></div>
+    <button type="submit" data-en="Send message">Enviar mensaje</button>
+  </form>
+</div></section>
+</main>
+
+<footer>
+  <a href="mailto:armando.takoi.artist@gmail.com">📧 armando.takoi.artist@gmail.com</a> · <a href="tel:+573145641237">📱 +57 314 564 1237</a>
+  <p data-en="© 2026 Armando Castaño · All rights reserved">© 2026 Armando Castaño · Todos los derechos reservados</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lb" hidden>
+  <button class="x" aria-label="Cerrar">✕</button>
+  <button class="pv" aria-label="Anterior">‹</button>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+  <button class="nx" aria-label="Siguiente">›</button>
+  <div class="th" id="lb-thumbs"></div>
+</div>
+
+<script>
+/* ===== Datos ===== */
+const PROJECTS = [
+  ["Servimeters","Diseño UI · Certificación ISO y RETIE","UI Design · ISO & RETIE Certification","Diseño UI · 2024","UI Design · 2024","Diseño UI para servicios de certificación ISO, RETIE y compliance.","UI design for ISO certification, RETIE and compliance services."],
+  ["Hangar / CCR","Manual de marca y sistema visual","Brand Guidelines & Visual System","Rebranding · 2022","Rebranding · 2022","Rebranding completo, manuales de marca y aplicación de identidad visual.","Complete rebranding, brand manuals and visual identity application."],
+  ["Moto Moto Refacciones","Branding automotriz y retail","Automotive Branding & Retail","Branding · 2023","Branding · 2023","Creación de marca completa: logotipo, aplicaciones y papelería.","End-to-end brand creation: logo, applications and stationery."],
+  ["Celebrando Diversidades","Diseño editorial y maquetación de libro","Editorial Design & Book Layout","Diseño Editorial · 2024","Editorial Design · 2024","Proyecto editorial con ilustración y maquetación para publicación impresa.","Editorial project with illustration and typesetting for a print publication."],
+  ["Packaging","Empaques, troqueles y cajas","Packaging, Die-cuts & Boxes","Diseño de Packaging · 2024","Packaging Design · 2024","Soluciones de empaque: cajas, bolsas, etiquetas y ediciones especiales.","Packaging solutions: boxes, bags, labels and special editions."]
+];
+const PLACE = { co:["Colombia","Colombia"], es:["España","Spain"], pa:["Panamá","Panama"], ar:["Argentina","Argentina"], us:["Florida, USA","Florida, USA"] };
+const JOBS = [
+  ["COTECNOVA",2013,"co","Diseñador Gráfico, Docente y Asistente de Marketing","Graphic Designer, Teacher & Marketing Assistant","Diseño gráfico, apoyo a marketing y docencia a estudiantes de diseño.","Graphic design, marketing support, and teaching design students."],
+  ["PUNTO CLICK",2014,"es","Diseñador Web","Web Designer","Diseño visual de sitios web y propuestas gráficas digitales.","Visual website design and digital graphic proposals."],
+  ["3D STUDIO",2015,"co","Diseñador Gráfico e Impresor","Graphic Designer & Printer","Piezas gráficas para impresión y diseño aplicado a espacios.","Print graphic pieces and design applied to spaces."],
+  ["MULTIPRINT",2015,"co","Diseñador Gráfico e Impresor","Graphic Designer & Printer","Diseño y producción para impresión. Operación de plotters.","Design and production for printing. Plotter operation."],
+  ["LIFE PANAMA INC.",2016,"pa","Diseñador Gráfico Editorial","Editorial Graphic Designer","Diseño editorial y maquetación de revista digital mensual.","Editorial design and layout for a monthly digital magazine."],
+  ["LÁSER CREACIONES & DISEÑOS",2018,"co","Diseñador Gráfico","Graphic Designer","Productos personalizados en MDF. Operación de corte láser.","Custom MDF products. Laser cutting operation."],
+  ["CONEXIÓN MP",2019,"co","Diseñador Gráfico e Impresor","Graphic Designer & Printer","Diseño para impresión y producción a gran escala.","Design for large-scale print production."],
+  ["MARKETING108",2020,"co","Diseñador Gráfico","Graphic Designer","Maquetación de manuales de marca y sistemas de identidad visual.","Layout of brand manuals and visual identity systems."],
+  ["KREATION INTERACTIVE",2020,"ar","Diseñador Gráfico","Graphic Designer","Propuestas de marca, señalización empresarial y contenido para redes.","Brand proposals, corporate signage, and social media content."],
+  ["PERFECT COLORS",2020,"co","Diseñador Gráfico & Ilustrador Digital","Graphic Designer & Digital Illustrator","Contenido para redes, sublimación e ilustración de personajes.","Social media content, sublimation, and character illustration."],
+  ["NEUROPUBLICIDAD",2021,"co","Diseñador Gráfico","Graphic Designer","Piezas gráficas para comunicación y publicidad. Plantillas funcionales.","Graphic pieces for communication and advertising. Functional templates."],
+  ["CCR",2022,"us","Director Creativo y Diseñador Gráfico","Creative Director & Graphic Designer","Rebranding de cuentas, manuales de marca y mentoría a diseñadores.","Account rebranding, brand manuals, and designer mentoring."],
+  ["SERVIMETERS","2024 - 2026","co","Diseñador de Publicidad","Advertising Designer","Diseño UI, brochures, campañas y comunicación corporativa.","UI design, brochures, campaigns, and corporate communication."]
+];
+
+/* ===== Logofolios (edita las URLs de img) ===== */
+const LOGOFOLIOS = [
+  { titulo:"Vol. 1 (2022)", url:"https://behance.net", img:"" },
+  { titulo:"Vol. 2 (2022)", url:"https://behance.net", img:"" },
+  { titulo:"Vol. 1 (2024)", url:"https://behance.net", img:"" },
+  { titulo:"Vol. 2 (2024)", url:"https://behance.net", img:"" },
+  { titulo:"Vol. 3 (2024)", url:"https://behance.net", img:"" },
+  { titulo:"Vol. 4 (2024)", url:"https://behance.net", img:"" }
+];
+
+/* ===== Utilidades ===== */
+const $ = (s,r=document)=>r.querySelector(s), $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+let LANG = 'es';
+
+/* ===== Render Proyectos ===== */
+const projWrap = $('#projects');
+if (projWrap) {
+  projWrap.innerHTML = PROJECTS.map((p,i)=>`
+    <article class="card">
+      <div class="mock">
+        <b>${p[0]}</b>
+        <small>${LANG==='es'?p[3]:p[4]}</small>
+      </div>
+      <h3>${p[0]}</h3>
+      <div class="m">${LANG==='es'?p[1]:p[2]}</div>
+      <p>${LANG==='es'?p[5]:p[6]}</p>
+    </article>
+  `).join('');
+}
+
+/* ===== Render Logofolio ===== */
+const logosWrap = $('#logos');
+if (logosWrap) {
+  logosWrap.innerHTML = LOGOFOLIOS.map((l,i)=>
+    l.img
+      ? `<button class="logo-item" data-i="${i}" aria-label="${l.titulo}">
+           <img src="${l.img}" alt="${l.titulo}" loading="lazy">
+         </button>`
+      : `<a href="${l.url}" target="_blank" rel="noopener">${l.titulo}</a>`
+  ).join('');
+}
+
+/* ===== Render Timeline ===== */
+const tlWrap = $('#timeline');
+if (tlWrap) {
+  const total = JOBS.length;
+  const pts = JOBS.map((j,i)=>{
+    const t = i/(total-1);
+    const y = i%2===0 ? 80 : 560;
+    return {t,y,j,i};
+  });
+  // SVG path serpentino
+  let d = `M ${pts[0].t*100}% ${pts[0].y}`;
+  const W = 100, H = 640;
+  const xs = pts.map(p=>p.t*W);
+  const ys = pts.map(p=>p.y);
+  d = `M ${xs[0]} ${ys[0]}`;
+  for (let i=1;i<xs.length;i++){
+    const cx = (xs[i-1]+xs[i])/2;
+    d += ` C ${cx} ${ys[i-1]}, ${cx} ${ys[i]}, ${xs[i]} ${ys[i]}`;
+  }
+  tlWrap.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="${d}"/></svg>
+    ${pts.map(p=>`<i class="dot" style="--t:${p.t};--y:${p.y}"></i>`).join('')}
+    ${pts.map(p=>{
+      const j = p.j;
+      const place = PLACE[j[2]];
+      const loc = LANG==='es'?place[0]:place[1];
+      const role = LANG==='es'?j[3]:j[4];
+      const desc = LANG==='es'?j[5]:j[6];
+      const hl = j[1]==='2024 - 2026' ? ' hl' : '';
+      return `<div class="nd ${p.i%2===0?'up':'dn'}${hl}" style="--t:${p.t};--y:${p.y}">
+        <span class="k">${j[1]}</span>
+        <h3>${j[0]}</h3>
+        <div class="loc">${loc}</div>
+        <div class="r">${role}</div>
+        <p>${desc}</p>
+        ${hl?'<em>Destacado</em>':''}
+      </div>`;
+    }).join('')}
+  `;
+}
+
+/* ===== Lightbox ===== */
+const lb = $('#lb'), lbImg = $('#lb-img'), lbCap = $('#lb-cap'), lbTh = $('#lb-thumbs');
+let lbImgs = [], lbIdx = 0;
+function openLB(imgs, idx, cap=""){
+  lbImgs = imgs; lbIdx = idx;
+  lb.hidden = false;
+  lbImg.src = imgs[idx];
+  lbCap.textContent = cap;
+  lbTh.innerHTML = imgs.length>1
+    ? imgs.map((s,i)=>`<button data-i="${i}" class="${i===idx?'on':''}"><img src="${s}" alt=""></button>`).join('')
+    : '';
+  document.body.style.overflow='hidden';
+}
+function closeLB(){ lb.hidden = true; document.body.style.overflow=''; }
+lb.querySelector('.x').onclick = closeLB;
+lb.querySelector('.pv').onclick = ()=>{ lbIdx=(lbIdx-1+lbImgs.length)%lbImgs.length; openLB(lbImgs,lbIdx,lbCap.textContent); };
+lb.querySelector('.nx').onclick = ()=>{ lbIdx=(lbIdx+1)%lbImgs.length; openLB(lbImgs,lbIdx,lbCap.textContent); };
+lbTh.addEventListener('click', e=>{
+  const b = e.target.closest('button[data-i]');
+  if(!b) return;
+  lbIdx = +b.dataset.i;
+  openLB(lbImgs,lbIdx,lbCap.textContent);
+});
+document.addEventListener('keydown', e=>{
+  if(lb.hidden) return;
+  if(e.key==='Escape') closeLB();
+  if(e.key==='ArrowLeft') lb.querySelector('.pv').click();
+  if(e.key==='ArrowRight') lb.querySelector('.nx').click();
+});
+
+/* ===== Zoom logofolio ===== */
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('.logo-item');
+  if(!btn) return;
+  const item = LOGOFOLIOS[+btn.dataset.i];
+  if(!item || !item.img) return;
+  openLB([item.img], 0, item.titulo);
+});
+
+/* ===== Idioma ===== */
+const langBtn = $('#lang');
+langBtn.onclick = ()=>{
+  LANG = LANG==='es'?'en':'es';
+  $('#l-es').classList.toggle('on', LANG==='es');
+  $('#l-en').classList.toggle('on', LANG==='en');
+  document.documentElement.lang = LANG;
+  // Re-render dinámicos
+  renderAll();
+  // Cambiar textos data-en
+  $$('[data-en]').forEach(el=>{
+    if(!el.dataset.es) el.dataset.es = el.textContent;
+    el.textContent = LANG==='es' ? el.dataset.es : el.dataset.en;
+  });
+  $$('[data-en-ph]').forEach(el=>{
+    if(!el.dataset.esPh) el.dataset.esPh = el.placeholder;
+    el.placeholder = LANG==='es' ? el.dataset.esPh : el.dataset.enPh;
+  });
+};
+function renderAll(){
+  if(projWrap){
+    projWrap.innerHTML = PROJECTS.map(p=>`
+      <article class="card">
+        <div class="mock"><b>${p[0]}</b><small>${LANG==='es'?p[3]:p[4]}</small></div>
+        <h3>${p[0]}</h3>
+        <div class="m">${LANG==='es'?p[1]:p[2]}</div>
+        <p>${LANG==='es'?p[5]:p[6]}</p>
+      </article>`).join('');
+  }
+  if(tlWrap){
+    const total = JOBS.length;
+    const pts = JOBS.map((j,i)=>({t:i/(total-1), y:i%2===0?80:560, j, i}));
+    const W=100,H=640;
+    const xs=pts.map(p=>p.t*W), ys=pts.map(p=>p.y);
+    let d=`M ${xs[0]} ${ys[0]}`;
+    for(let i=1;i<xs.length;i++){const cx=(xs[i-1]+xs[i])/2; d+=` C ${cx} ${ys[i-1]}, ${cx} ${ys[i]}, ${xs[i]} ${ys[i]}`;}
+    tlWrap.innerHTML = `
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="${d}"/></svg>
+      ${pts.map(p=>`<i class="dot" style="--t:${p.t};--y:${p.y}"></i>`).join('')}
+      ${pts.map(p=>{
+        const j=p.j, place=PLACE[j[2]];
+        const loc=LANG==='es'?place[0]:place[1];
+        const role=LANG==='es'?j[3]:j[4];
+        const desc=LANG==='es'?j[5]:j[6];
+        const hl=j[1]==='2024 - 2026'?' hl':'';
+        return `<div class="nd ${p.i%2===0?'up':'dn'}${hl}" style="--t:${p.t};--y:${p.y}">
+          <span class="k">${j[1]}</span><h3>${j[0]}</h3>
+          <div class="loc">${loc}</div><div class="r">${role}</div>
+          <p>${desc}</p>${hl?'<em>Destacado</em>':''}
+        </div>`;
+      }).join('')}`;
+  }
+}
+
+/* ===== Burger ===== */
+const burger = $('#burger');
+if(burger){ burger.onclick = ()=> $('#menu').classList.toggle('open'); }
+
+/* ===== Banner parallax ===== */
+const banner = $('#banner');
+if(banner){
+  banner.addEventListener('mousemove', e=>{
+    const r = banner.getBoundingClientRect();
+    const x = (e.clientX - r.left)/r.width - .5;
+    const y = (e.clientY - r.top)/r.height - .5;
+    banner.style.setProperty('--mx', x);
+    banner.style.setProperty('--my', y);
+  });
+}
+
+/* ===== Timeline on scroll ===== */
+const tw = $('.tw');
+if(tw){
+  const io = new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting) tw.classList.add('in'); });
+  },{threshold:.2});
+  io.observe(tw);
+}
+
+/* ===== Formulario (demo) ===== */
+const form = $('#form');
+if(form){
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    alert(LANG==='es' ? '¡Gracias! Tu mensaje fue enviado.' : 'Thank you! Your message was sent.');
+    form.reset();
+  });
+}
+</script>
+</body>
+</html>
