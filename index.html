@@ -1535,6 +1535,34 @@
       }
     }
 
+    /* ===== WHATSAPP FLOTANTE ===== */
+    .wa-float {
+      position: fixed;
+      right: 18px;
+      bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+      width: 64px;
+      height: 64px;
+      z-index: 900;
+      display: block;
+      filter: drop-shadow(0 6px 10px rgba(26, 15, 46, .28));
+      transition: transform .2s;
+    }
+
+    .wa-float:hover { transform: rotate(-6deg) scale(1.08); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .wa-float { animation: wa-wiggle 6s ease-in-out infinite; }
+      @keyframes wa-wiggle {
+        0%, 90%, 100% { transform: rotate(0); }
+        93% { transform: rotate(-8deg); }
+        96% { transform: rotate(7deg); }
+      }
+    }
+
+    @media(max-width:600px) {
+      .wa-float { width: 56px; height: 56px; right: 14px; }
+    }
+
     /* ===== LIGHTBOX ===== */
     #lb {
       position: fixed;
@@ -2057,7 +2085,7 @@
         <h2 class="t" style="margin-top:20px" data-en="Featured Projects">Proyectos Destacados</h2>
         <p class="sub" data-en="The best of my recent work">Lo mejor de mi trabajo reciente</p>
         <div class="grid" id="projects"></div>
-        <a class="pill more" href="#contacto" data-en="View all projects">Ver todos los proyectos</a>
+        <a class="pill more" href="https://www.behance.net/jotako" target="_blank" rel="noopener" data-en="View all projects">Ver todos los proyectos</a>
       </div>
     </section>
 
@@ -2137,6 +2165,21 @@
     <p data-en="© 2026 Armando Castaño · All rights reserved">© 2026 Armando Castaño · Todos los derechos reservados</p>
   </footer>
 
+  <!-- WHATSAPP FLOTANTE -->
+  <a id="wa-float" class="wa-float" href="https://wa.me/573145641237" target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp" title="WhatsApp">
+    <svg viewBox="0 0 64 64" width="100%" height="100%" aria-hidden="true">
+      <!-- sombra dibujada -->
+      <path d="M35 9 C49 8 61 19 61 34 C61 49 49 61 34 61 C29 61 25 60 21 58 L10 61 L14 51 C11 47 9 41 9 35 C9 20 21 10 35 9 Z" fill="#1a0f2e"/>
+      <!-- globo morado con contorno de tinta -->
+      <path d="M32 6 C46 5 58 16 58 31 C58 46 46 58 31 58 C26 58 22 57 18 55 L7 58 L11 48 C8 44 6 38 6 32 C6 17 18 7 32 6 Z" fill="#6B4491" stroke="#1a0f2e" stroke-width="2.6" stroke-linejoin="round"/>
+      <!-- trazos de brillo -->
+      <path d="M14 20 C16 15 20 12 25 10" fill="none" stroke="#b79bd6" stroke-width="2" stroke-linecap="round"/>
+      <path d="M50 42 C48 47 44 50 40 52" fill="none" stroke="#4a2d69" stroke-width="2" stroke-linecap="round"/>
+      <!-- teléfono dibujado -->
+      <path d="M22.5 19.5 C20.5 21.5 20.5 25.5 24.5 32.5 C28.5 39.5 34.5 44.5 40 43.5 C43.5 42.8 44.5 39.8 43.2 38.4 L39.2 35.2 C38 34.2 36.2 35 35.2 36.2 C32.2 35 28.2 31 27.2 28 C28.4 27 29.2 25.2 28.2 24 L25.2 19.8 C24.4 18.8 23.4 18.8 22.5 19.5 Z" fill="#fff" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
   <!-- LIGHTBOX -->
   <div id="lb" hidden>
     <button class="x" aria-label="Cerrar">✕</button>
@@ -2164,7 +2207,8 @@
 
     // [nombre, subtítulo ES, subtítulo EN, etiqueta ES, etiqueta EN, descripción ES, descripción EN]
     const PROJECTS = [
-      ["Servimeters", "Diseño UI · Certificación ISO y RETIE", "UI Design · ISO & RETIE Certification", "Diseño UI · 2024", "UI Design · 2024", "Diseño UI para servicios de certificación ISO, RETIE y compliance.", "UI design for ISO certification, RETIE and compliance services."],
+      ["Servimeters", "Diseño UI, landing pages y multimedia", "UI Design, Landing Pages & Multimedia", "Diseño UI · 2024", "UI Design · 2024", "Diseño UI y landing pages, edición de reels y multimedia para redes sociales, cursos y webinars, además de folletos, flyers y stand para ferias.", "UI design and landing pages, reel editing and multimedia for social media, courses and webinars, plus brochures, flyers and trade-show stand."],
+      ["Hierros y Cementos Social Media", "Carruseles para redes sociales", "Social Media Carousels", "Social Media", "Social Media", "Diseño de carruseles y contenido para las redes sociales de Hierros y Cementos.", "Carousel and content design for the Hierros y Cementos social media channels."],
       ["Branding de marcas", "Identidad visual para varias marcas", "Visual identity for multiple brands", "Branding", "Branding", "Selección de proyectos de branding: logotipos, aplicaciones y piezas gráficas para distintas marcas.", "A selection of branding projects: logos, applications and graphic pieces for different brands."],
       ["CCR", "Manual de marca y sistema visual", "Brand Guidelines & Visual System", "Rebranding · 2022", "Rebranding · 2022", "Rebranding completo, manual de marca y aplicación de la identidad visual.", "Complete rebranding, brand manual and visual identity application."],
       ["Hangar", "Branding y piezas publicitarias", "Branding & Advertising Pieces", "Branding", "Branding", "Identidad de marca, publicidad y volantes para Hangar Emprendedor.", "Brand identity, advertising and flyers for Hangar Emprendedor."],
@@ -2223,6 +2267,21 @@
       ]
     };
 
+    /* ===== Botones desplegables por proyecto (landing pages, brandbooks) ===== */
+    const SM = "https://www.servimeters.com/";
+    const PROJECT_LISTS = {
+      "Servimeters": {
+        icon: "bi-window", es: "Ver landing pages", en: "View landing pages",
+        items: [
+          { name: "Curso de diseño y construcción TDT · RITEL", url: SM + "curso-de-dise%C3%B1o-y-construcci%C3%B3n-tdt-ritel" },
+          { name: "Compliance y auditor interno · ISO 9001 · 37001 · 37301", url: SM + "compliance-y-auditor-interno-iso9001-iso37001-iso37301" },
+          { name: "Certificación de sistemas de gestión ISO", url: SM + "certificacion-sistemas-de-gestion-iso" },
+          { name: "Inspección RETIE y RETILAP 2024", url: SM + "inspeccion-retie-y-retilap-2024" }
+        ]
+      },
+      "Branding de marcas": { icon: "bi-book", es: "Brandbooks", en: "Brandbooks", items: BRANDBOOKS["Branding de marcas"] }
+    };
+
     /* ===== Imágenes de Proyectos (la primera es la portada) ===== */
     const PROJECT_IMAGES = {
       "Servimeters": [
@@ -2239,8 +2298,25 @@
           "Collage%20de%20publicaciones%20de%20Instagram%20sobre%20RETIE.webp",
           "Mockup%20Instagram%20de%20formaci%C3%B3n%20industrial.webp",
           "Mosaico%20isom%C3%A9trico%20de%20publicaciones%20de%20Instagram%20sobre%20RETIE%202024.webp"
+        ]),
+        ...gh("04ac6c5a1df4e93176eb5ccbdd663b380ce9031f", [
+          "Invitaci%C3%B3n%20ExpoSolar%20Colombia%202025%20en%20smartphone.webp",
+          "Mockup%20corporativo%20de%20folletos%20Servimeters_11zon.webp",
+          "SM%20Vis%C3%ADtenos%20en%20ExpoSolar%202025_IG-02-02%20(1).webp",
+          "Stand%20Mockup_V3_11zon.webp",
+          "flyer-01_11zon.webp",
+          "flyer-02_11zon.webp",
+          "stories_11zon.webp"
         ])
       ],
+      "Hierros y Cementos Social Media": gh("main", [
+        "Carruseles-Hierros-y-Cementos_1_.webp",
+        "Carruseles-Hierros-y-Cementos.webp",
+        "Carruseles-Hierros-y-Cementos_2_.webp",
+        "Carruseles-Hierros-y-Cementos_3_.webp",
+        "Carruseles-Hierros-y-Cementos_5_.webp",
+        "Carruseles-Hierros-y-Cementos_6_.webp"
+      ]),
       "Branding de marcas": BRANDS.map(b => GH + b[0] + "/" + b[1]),
       "CCR": gh("45945061208c10e0496910400cba1f02f2be1930", [
         "%5BJotako%5D%20Behance%20CCR-10-convertido-de-png.webp",
@@ -2493,9 +2569,9 @@
         const more = link
           ? `<a class="proj-link" href="${link}" target="_blank" rel="noopener">${link.toLowerCase().endsWith('.pdf') ? (es ? 'Ver PDF del proyecto' : 'View project PDF') : (es ? 'Ver proyecto en Behance' : 'View project on Behance')} <i class="bi bi-box-arrow-up-right"></i></a>`
           : '';
-        const bbs = BRANDBOOKS[p[0]];
-        const bb = bbs
-          ? `<details class="bb"><summary><i class="bi bi-book"></i> Brandbooks</summary><ul>${bbs.map(b => `<li><a href="${b.url}" target="_blank" rel="noopener">${b.name} <i class="bi bi-box-arrow-up-right"></i></a></li>`).join('')}</ul></details>`
+        const L = PROJECT_LISTS[p[0]];
+        const bb = L
+          ? `<details class="bb"><summary><i class="bi ${L.icon}"></i> ${es ? L.es : L.en}</summary><ul>${L.items.map(b => `<li><a href="${b.url}" target="_blank" rel="noopener">${b.name} <i class="bi bi-box-arrow-up-right"></i></a></li>`).join('')}</ul></details>`
           : '';
         return `
           <article class="card">
@@ -3000,10 +3076,21 @@
       document.addEventListener('click', () => langWrap.classList.remove('open'));
     }
 
+    (function () {
+      const wa = document.getElementById('wa-float');
+      if (wa) wa.href = 'https://wa.me/573145641237?text=' + encodeURIComponent('Hola Armando, vi tu portafolio y me gustaría hablar contigo.');
+    })();
+
     function renderAll() {
       renderProjects();
       renderTimeline();
       translateLogofolio();
+      const wa = $('#wa-float');
+      if (wa) {
+        const es = LANG === 'es';
+        wa.href = 'https://wa.me/573145641237?text=' + encodeURIComponent(es ? 'Hola Armando, vi tu portafolio y me gustaría hablar contigo.' : 'Hi Armando, I saw your portfolio and I would like to talk.');
+        wa.setAttribute('aria-label', es ? 'Escríbeme por WhatsApp' : 'Message me on WhatsApp');
+      }
     }
 
     /* ===== Pluma: vectorizando el rombo ===== */
