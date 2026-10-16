@@ -2253,7 +2253,10 @@
         "%5BJotako%5D%20Behance%20CCR-05-convertido-de-jpg.webp",
         "%5BJotako%5D%20Behance%20CCR-06-convertido-de-jpg.webp",
         "%5BJotako%5D%20Behance%20CCR-07-convertido-de-jpg.webp"
-      ]),
+      ]).concat(
+        // Animación del logo CCR (GIF pesado: ~20 MB; ver V1-ligero.webp)
+        gh("a751f26ebf91455ef43443f6c2c5b91751e5bbe3", ["V1.gif"])
+      ),
       "Hangar": gh("aa73b78f83a50aa3ee5d96b8dfc0664b3b99e8ca", [
         "hangar%20logo%20panama.webp",
         "2026-10-16%2013_02_57-%232-convertido-de-png.webp",
@@ -2347,6 +2350,8 @@
         id: "restaurant-food",
         label: "Restaurantes y Comida",
         description: "Identidades de logotipo creadas para restaurantes, marcas de comida y servicios culinarios.",
+        labelEn: "Restaurants & Food",
+        descriptionEn: "Logo identities created for restaurants, food brands and culinary services.",
         images: [
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/4ddef549daddc508981951c08714a45480f31dd8/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.4_Mesa%20de%20trabajo%201.png",
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/4ddef549daddc508981951c08714a45480f31dd8/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.4-15.png",
@@ -2367,6 +2372,8 @@
         id: "health-education",
         label: "Salud y Educación",
         description: "Identidades de marca para negocios de salud, bienestar y educación.",
+        labelEn: "Health & Education",
+        descriptionEn: "Brand identities for health, wellness and education businesses.",
         images: [
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/26fffbf5659a41abb696711f2060e02c5cdd13c9/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.1-10.png",
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/26fffbf5659a41abb696711f2060e02c5cdd13c9/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.1_Mesa%20de%20trabajo%201.png",
@@ -2383,6 +2390,8 @@
         id: "agencies-personal",
         label: "Agencias y Marcas Personales",
         description: "Logotipos diseñados para agencias, consultores y proyectos de marca personal.",
+        labelEn: "Agencies & Personal Brands",
+        descriptionEn: "Logos designed for agencies, consultants and personal brand projects.",
         images: [
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/5a34473abeb6b43bc294fe1b69a0fd6d2b3f92f1/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.2_Mesa%20de%20trabajo%201.png",
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/5a34473abeb6b43bc294fe1b69a0fd6d2b3f92f1/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.2-11.png",
@@ -2401,6 +2410,8 @@
         id: "fashion-beauty",
         label: "Moda y Belleza",
         description: "Diseños de logotipo para marcas de moda, belleza y estilo de vida.",
+        labelEn: "Fashion & Beauty",
+        descriptionEn: "Logo designs for fashion, beauty and lifestyle brands.",
         images: [
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/43ac76f70dd3a6cfb894995593263bd7d98b24ff/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.3_Mesa%20de%20trabajo%201.png",
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/43ac76f70dd3a6cfb894995593263bd7d98b24ff/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.3-09.png",
@@ -2418,6 +2429,8 @@
         id: "radio-asmr",
         label: "Radio y ASMR",
         description: "Identidades de logotipo para estaciones de radio, podcasts y creadores de contenido ASMR.",
+        labelEn: "Radio & ASMR",
+        descriptionEn: "Logo identities for radio stations, podcasts and ASMR content creators.",
         images: [
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/0c6d3b02fbb47ec7a1053d07288abf2044f70f2d/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.5_Mesa%20de%20trabajo%201.png",
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/0c6d3b02fbb47ec7a1053d07288abf2044f70f2d/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.5-11.png",
@@ -2436,6 +2449,8 @@
         id: "various-services",
         label: "Servicios Varios",
         description: "Una mezcla de identidades de logotipo diseñadas para diversos negocios de servicios.",
+        labelEn: "Various Services",
+        descriptionEn: "A mix of logo identities designed for a variety of service businesses.",
         images: [
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/24c1a4a64b056c9e3fd7db75169eb6b5b3cb3eaf/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.6_Mesa%20de%20trabajo%201.png",
           "https://raw.githubusercontent.com/Takoiartist/takoi-artist/24c1a4a64b056c9e3fd7db75169eb6b5b3cb3eaf/%5BJotako%5D%20Behance%20Logofolio%202024%20Vol.6-11.png",
@@ -2762,6 +2777,31 @@
       });
     }
 
+    /* Traduce en el lugar los textos del Logofolio (conserva pestaña activa y logo actual) */
+    function translateLogofolio() {
+      const es = LANG === 'es';
+      logoFolders.forEach(f => {
+        const label = es ? f.label : f.labelEn;
+        const tab = document.getElementById(`tab-${f.id}`);
+        if (tab && tab.firstChild) tab.firstChild.nodeValue = label;
+        const pane = document.getElementById(`pane-${f.id}`);
+        if (!pane) return;
+        const h3 = pane.querySelector('.folder-heading h3');
+        const desc = pane.querySelector('.folder-heading p');
+        if (h3) h3.textContent = label;
+        if (desc) desc.textContent = es ? f.description : f.descriptionEn;
+        const stage = document.getElementById(`stage-img-${f.id}`);
+        if (stage) stage.alt = es ? `${label} logotipo` : `${label} logo`;
+        pane.querySelectorAll('.thumb-item img').forEach((img, i) => {
+          img.alt = es ? `${label} miniatura ${i + 1}` : `${label} thumbnail ${i + 1}`;
+        });
+        const pv = pane.querySelector('.carousel-nav-btn.prev');
+        const nx = pane.querySelector('.carousel-nav-btn.next');
+        if (pv) pv.setAttribute('aria-label', es ? 'Logotipo anterior' : 'Previous logo');
+        if (nx) nx.setAttribute('aria-label', es ? 'Logotipo siguiente' : 'Next logo');
+      });
+    }
+
     /* ===== Lightbox (Proyectos) con zoom ===== */
     const lb = $('#lb'), lbImg = $('#lb-img'), lbCap = $('#lb-cap'), lbTh = $('#lb-thumbs');
     const lbStage = $('#lb-stage'), lbLevel = $('#lb-level'), lbLink = $('#lb-link');
@@ -2808,7 +2848,7 @@
         lbLink.hidden = true;
       }
       lbTh.innerHTML = lbImgs.length > 1
-        ? lbImgs.map((s, i) => `<button data-i="${i}" class="${i === lbIdx ? 'on' : ''}"><img src="${s}" alt=""></button>`).join('')
+        ? lbImgs.map((s, i) => `<button data-i="${i}" class="${i === lbIdx ? 'on' : ''}"><img src="${s}" alt="" loading="lazy"></button>`).join('')
         : '';
       const on = lbTh.querySelector('.on');
       if (on) on.scrollIntoView({ block: 'nearest', inline: 'center' });
@@ -2963,6 +3003,7 @@
     function renderAll() {
       renderProjects();
       renderTimeline();
+      translateLogofolio();
     }
 
     /* ===== Pluma: vectorizando el rombo ===== */
