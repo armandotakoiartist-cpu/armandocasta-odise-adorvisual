@@ -379,6 +379,7 @@
       --my: 0;
       position: relative;
       z-index: 2;
+      container-type: inline-size;
       width: min(980px, 94vw, calc((100vh - 250px) * 1.78));
       padding: 14px;
     }
@@ -500,32 +501,6 @@
       }
     }
 
-    .anchor {
-      position: absolute;
-      right: -18px;
-      bottom: -22px;
-      z-index: 5;
-      display: flex;
-      gap: 2px;
-      align-items: flex-start;
-      animation: drift 7s 2s ease-in-out infinite;
-    }
-
-    .anchor svg {
-      width: 24px;
-      fill: #000;
-      stroke: #fff;
-      stroke-width: 1.5;
-      transform: rotate(-12deg);
-      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .6));
-    }
-
-    @keyframes drift {
-      25% { transform: translate(-90px, -70px); }
-      50% { transform: translate(-200px, -30px); }
-      75% { transform: translate(-60px, 10px); }
-    }
-
     .stage {
       position: relative;
       aspect-ratio: 16/9;
@@ -564,15 +539,47 @@
       to { left: 115%; }
     }
 
-    .poly {
+    .poly,
+    .penlayer {
       position: absolute;
       left: 4%;
       top: 8%;
-      width: 52%;
-      opacity: .55;
-      animation: spin 30s linear infinite;
-      transform-origin: 50% 50%;
+      width: 50%;
+      overflow: visible;
     }
+
+    .poly {
+      opacity: .9;
+    }
+
+    .penlayer {
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    #vLines { opacity: 0; transition: opacity .8s; }
+
+    #vAnchors rect {
+      fill: var(--lav2);
+      stroke: var(--takoi);
+      stroke-width: 1;
+      opacity: 0;
+      transition: opacity .25s, fill .15s;
+    }
+
+    #vAnchors rect.on { opacity: 1; }
+    #vAnchors rect.sel { fill: var(--takoi); stroke: var(--lav2); filter: drop-shadow(0 0 3px rgba(169, 140, 255, .9)); }
+
+    #vHandles { opacity: 0; transition: opacity .15s; }
+    #vHandles.on { opacity: 1; }
+
+    #vPen {
+      opacity: 0;
+      transition: opacity .4s;
+      filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .55));
+    }
+
+    #vPen.on { opacity: 1; }
 
     @keyframes spin {
       to { transform: rotate(360deg); }
@@ -620,13 +627,52 @@
     .ln {
       display: block;
       position: relative;
-      font-size: clamp(1.7rem, 5vw, 4.2rem);
+      font-size: min(7.6cqw, 5.4rem);
       white-space: nowrap;
     }
 
     .ln.sub {
-      font-size: clamp(.9rem, 2.5vw, 2rem);
-      margin-top: .12em;
+      font-family: var(--body);
+      font-weight: 700;
+      line-height: 1.1;
+      font-size: min(3.7cqw, 2.4rem);
+      margin-top: .55em;
+    }
+
+    /* Iconos Adobe */
+    .apps {
+      display: flex;
+      gap: min(1.6cqw, 14px);
+      margin-bottom: min(2cqw, 18px);
+    }
+
+    .app {
+      width: min(5.4cqw, 3.4rem);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 22%;
+      border: 1.5px solid currentColor;
+      font-family: var(--body);
+      font-weight: 700;
+      font-size: min(2.5cqw, 1.6rem);
+      line-height: 1;
+      letter-spacing: -.02em;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .4);
+      animation: appin .5s calc(1.1s + var(--k) * .15s) cubic-bezier(.2, .9, .3, 1.4) both, float 4s calc(2s + var(--k) * .35s) ease-in-out infinite;
+      transition: box-shadow .25s;
+    }
+
+    .app:hover { box-shadow: 0 0 18px currentColor; }
+    .app.ai { background: #330000; color: #FF9A00; }
+    .app.ps { background: #001E36; color: #31A8FF; }
+    .app.ae { background: #00005B; color: #9999FF; }
+
+    @keyframes appin {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(.4) rotate(-12deg);
+      }
     }
 
     .ln .c {
@@ -1454,7 +1500,6 @@
       .about, .grid { grid-template-columns: 1fr; }
       .about { gap: 40px; }
       .t-exp { right: -6px; }
-      .anchor { display: none; }
     }
 
     @media(max-width:560px) {
@@ -1812,21 +1857,36 @@
         <svg class="arrow a2" viewBox="0 0 70 60" aria-hidden="true">
           <path d="M2 6C34 2 58 20 64 50M64 50l-9-9M64 50l8-10" />
         </svg>
-        <div class="anchor">
-          <svg viewBox="0 0 24 24">
-            <path d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 5.428v-20.549z" />
-          </svg>
-        </div>
         <div class="stage">
-          <svg class="poly" viewBox="0 0 200 200" fill="none" stroke="#a98cff" stroke-width=".6" aria-hidden="true">
-            <polygon points="100,10 180,60 160,150 100,190 40,150 20,60" />
-            <polygon points="100,40 150,70 135,130 100,160 65,130 50,70" />
-            <path d="M100,10L100,190M20,60L160,150M180,60L40,150" />
+          <svg class="poly" viewBox="0 0 200 200" fill="none" stroke="#a98cff" stroke-width=".8" stroke-linejoin="round" aria-hidden="true">
+            <polyline id="vOuter" points="" />
+            <polyline id="vInner" points="" />
+            <path id="vLines" d="" />
+          </svg>
+          <svg class="penlayer" viewBox="0 0 200 200" aria-hidden="true">
+            <g id="vHandles" stroke="#E2DCEA" stroke-width=".8">
+              <line id="vH1" /><line id="vH2" />
+              <circle id="vC1" r="1.8" fill="#E2DCEA" /><circle id="vC2" r="1.8" fill="#E2DCEA" />
+            </g>
+            <g id="vAnchors"></g>
+            <g id="vPen" transform="translate(100 10)">
+              <g transform="rotate(28) scale(.85)">
+                <path d="M0 0L-6 -13Q-6.5 -19 -4 -22L4 -22Q6.5 -19 6 -13Z" fill="#F5F0E8" stroke="#1a0f2e" stroke-width="1.1" stroke-linejoin="round" />
+                <path d="M0 -3L0 -13" stroke="#1a0f2e" stroke-width="1" />
+                <circle cx="0" cy="-14.5" r="1.7" fill="#1a0f2e" />
+                <rect x="-4.6" y="-28" width="9.2" height="6" rx="1.4" fill="#1a0f2e" stroke="#F5F0E8" stroke-width="1" />
+              </g>
+            </g>
           </svg>
           <div class="photo">
             <img src="https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/main/Jorge-Jotako-sin-fondo.png" alt="Armando Castaño">
           </div>
           <div class="txt">
+            <div class="apps" aria-label="Adobe Illustrator, Photoshop, After Effects">
+              <span class="app ai" style="--k:0" title="Illustrator">Ai</span>
+              <span class="app ps" style="--k:1" title="Photoshop">Ps</span>
+              <span class="app ae" style="--k:2" title="After Effects">Ae</span>
+            </div>
             <h1 id="kin" aria-label="Armando Castaño, Director Creativo">
               <span class="ln" data-t="ARMANDO">ARMANDO</span>
               <span class="ln" data-t="CASTAÑO">CASTAÑO</span>
@@ -2463,6 +2523,7 @@
         if (!el.dataset.es) el.dataset.es = el.textContent;
         el.textContent = LANG === 'es' ? el.dataset.es : el.dataset.en;
       });
+      $$('.ln').forEach(l => l.dataset.t = l.textContent);
       $$('[data-en-ph]').forEach(el => {
         if (!el.dataset.esPh) el.dataset.esPh = el.placeholder;
         el.placeholder = LANG === 'es' ? el.dataset.esPh : el.dataset.enPh;
@@ -2514,6 +2575,120 @@
       }
       renderTimeline();
     }
+
+    /* ===== Pluma: vectorizando el rombo ===== */
+    (function () {
+      const vO = $('#vOuter'), vI = $('#vInner'), vL = $('#vLines'), gA = $('#vAnchors'), gH = $('#vHandles'), pen = $('#vPen');
+      if (!vO || !pen) return;
+      const NS = 'http://www.w3.org/2000/svg';
+      const BASE = {
+        O: [[100, 10], [180, 60], [160, 150], [100, 190], [40, 150], [20, 60]],
+        I: [[100, 40], [150, 70], [135, 130], [100, 160], [65, 130], [50, 70]]
+      };
+      const cur = { O: BASE.O.map(p => p.slice()), I: BASE.I.map(p => p.slice()) };
+      const st = { pO: [], pI: [], lines: false, sel: null, pen: [100, 10] };
+      const anchors = [];
+      ['O', 'I'].forEach(k => cur[k].forEach((p, i) => {
+        const el = document.createElementNS(NS, 'rect');
+        el.setAttribute('width', 4.4); el.setAttribute('height', 4.4);
+        gA.appendChild(el);
+        anchors.push({ k, i, p, el, on: false });
+      }));
+      const hl = [$('#vH1'), $('#vH2')], hc = [$('#vC1'), $('#vC2')];
+      const pts = a => a.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+
+      function render() {
+        vO.setAttribute('points', pts(st.pO));
+        vI.setAttribute('points', pts(st.pI));
+        if (st.lines) {
+          const o = cur.O;
+          vL.setAttribute('d', `M${o[0]}L${o[3]}M${o[5]}L${o[2]}M${o[1]}L${o[4]}`);
+        }
+        anchors.forEach(a => {
+          a.el.setAttribute('x', a.p[0] - 2.2);
+          a.el.setAttribute('y', a.p[1] - 2.2);
+          a.el.classList.toggle('on', a.on);
+          a.el.classList.toggle('sel', st.sel === a.p);
+        });
+        if (st.sel) {
+          const p = st.sel, r = [p[0] - 100, p[1] - 100], l = Math.hypot(r[0], r[1]) || 1;
+          const t = [-r[1] / l * 15, r[0] / l * 15];
+          [[1, 0], [-1, 1]].forEach(([sg, n]) => {
+            const x = p[0] + t[0] * sg, y = p[1] + t[1] * sg;
+            hl[n].setAttribute('x1', p[0]); hl[n].setAttribute('y1', p[1]);
+            hl[n].setAttribute('x2', x); hl[n].setAttribute('y2', y);
+            hc[n].setAttribute('cx', x); hc[n].setAttribute('cy', y);
+          });
+        }
+        gH.classList.toggle('on', !!st.sel);
+      }
+
+      const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      const wait = ms => new Promise(r => setTimeout(r, ms));
+      const tween = (ms, fn) => new Promise(res => {
+        const t0 = performance.now();
+        (function f(now) {
+          const k = Math.min(1, (now - t0) / ms);
+          fn(ease(k)); render();
+          k < 1 ? requestAnimationFrame(f) : res();
+        })(t0);
+      });
+      const movePen = (x, y) => { st.pen = [x, y]; pen.setAttribute('transform', `translate(${x} ${y})`); };
+      const penTo = (x, y, ms) => { const f = st.pen.slice(); return tween(ms, k => movePen(f[0] + (x - f[0]) * k, f[1] + (y - f[1]) * k)); };
+      const show = (k, i) => { anchors.find(a => a.k === k && a.i === i).on = true; };
+
+      async function drawPoly(k, segMs) {
+        const P = cur[k], key = k === 'O' ? 'pO' : 'pI';
+        st[key] = [P[0], P[0]];
+        show(k, 0); render();
+        for (let i = 1; i <= P.length; i++) {
+          const a = P[i - 1], b = P[i % P.length];
+          await tween(segMs, e => {
+            const t = [a[0] + (b[0] - a[0]) * e, a[1] + (b[1] - a[1]) * e];
+            st[key] = [...P.slice(0, i), t];
+            movePen(t[0], t[1]);
+          });
+          if (i < P.length) show(k, i);
+        }
+        st[key] = [...P, P[0]];
+        render();
+      }
+
+      const still = () => {
+        st.pO = [...cur.O, cur.O[0]]; st.pI = [...cur.I, cur.I[0]]; st.lines = true;
+        anchors.forEach(a => a.on = true); vL.style.opacity = 1; render();
+      };
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return still();
+
+      (async function run() {
+        await wait(1700);
+        movePen(...cur.O[0]); pen.classList.add('on');
+        await drawPoly('O', 380);
+        await penTo(cur.I[0][0], cur.I[0][1], 500);
+        await drawPoly('I', 280);
+        st.lines = true; vL.style.opacity = 1; render();
+        await wait(700);
+        let last = -1;
+        while (true) {
+          let n; do { n = Math.floor(Math.random() * 12); } while (n === last);
+          last = n;
+          const k = n < 6 ? 'O' : 'I', i = n % 6, p = cur[k][i], b = BASE[k][i];
+          await penTo(p[0], p[1], 650);
+          st.sel = p; render();
+          await wait(250);
+          const r = [b[0] - 100, b[1] - 100], l = Math.hypot(r[0], r[1]);
+          const amt = (Math.random() < .7 ? 1 : -.6) * (9 + Math.random() * 12);
+          const tg = [b[0] + r[0] / l * amt, b[1] + r[1] / l * amt], s0 = p.slice();
+          await tween(950, e => {
+            p[0] = s0[0] + (tg[0] - s0[0]) * e; p[1] = s0[1] + (tg[1] - s0[1]) * e;
+            movePen(p[0], p[1]);
+          });
+          await wait(450);
+          st.sel = null; render();
+          await wait(350);
+        }
+      })();
+    })();
 
     /* ===== Burger ===== */
     const burger = $('#burger');
