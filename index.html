@@ -1580,7 +1580,7 @@
 
     #lb figure img {
       max-width: 100%;
-      max-height: calc(100vh - 190px);
+      max-height: calc(100vh - 240px);
       object-fit: contain;
       border-radius: 8px;
       transform-origin: center;
@@ -1624,6 +1624,54 @@
     }
 
     .proj-link:hover { text-decoration: underline; }
+
+    #lb .lb-link {
+      background: #fff;
+      color: #1a0f2e;
+      font-weight: 600;
+      font-size: .85rem;
+      padding: 8px 18px;
+      border-radius: 30px;
+      text-decoration: none;
+    }
+
+    #lb .lb-link[hidden] { display: none; }
+    #lb .lb-link:hover { background: #e9dff3; }
+
+    .bb {
+      margin-top: 14px;
+      font-size: .85rem;
+    }
+
+    .bb summary {
+      display: inline-block;
+      cursor: pointer;
+      list-style: none;
+      background: #6B4491;
+      color: #fff;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 30px;
+    }
+
+    .bb summary::-webkit-details-marker { display: none; }
+    .bb summary:hover { background: #1a0f2e; }
+
+    .bb ul {
+      list-style: none;
+      margin: 10px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 6px;
+    }
+
+    .bb a {
+      color: #6B4491;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .bb a:hover { text-decoration: underline; }
 
     #lb figcaption {
       color: #e2dcea;
@@ -2102,6 +2150,7 @@
     <figure>
       <div id="lb-stage"><img id="lb-img" alt="" draggable="false"></div>
       <figcaption id="lb-cap"></figcaption>
+      <a id="lb-link" class="lb-link" href="#" target="_blank" rel="noopener" hidden></a>
     </figure>
     <button class="nx" aria-label="Siguiente">›</button>
     <div class="th" id="lb-thumbs"></div>
@@ -2121,17 +2170,57 @@
       ["Hangar", "Branding y piezas publicitarias", "Branding & Advertising Pieces", "Branding", "Branding", "Identidad de marca, publicidad y volantes para Hangar Emprendedor.", "Brand identity, advertising and flyers for Hangar Emprendedor."],
       ["Life Panama", "Diseño editorial y branding", "Editorial Design & Branding", "Diseño Editorial", "Editorial Design", "Maquetación de la revista inmobiliaria, portadas, newsletters y piezas de lanzamiento.", "Real-estate magazine layout, covers, newsletters and launch pieces."],
       ["Lola's Day Care Panama", "Branding · Diseño UI/UX", "Branding · UI/UX Design", "Branding · UI/UX", "Branding · UI/UX", "Identidad de marca y diseño UI/UX de la app web responsive: ingreso, registro y flujos de usuario.", "Brand identity and UI/UX design for the responsive web app: login, sign-up and user flows."],
-      ["Celebrando Diversidades", "Diseño editorial y maquetación de libro", "Editorial Design & Book Layout", "Diseño Editorial · 2024", "Editorial Design · 2024", "Proyecto editorial con ilustración y maquetación para publicación impresa.", "Editorial project with illustration and typesetting for a print publication."],
-      ["Packaging", "Empaques, troqueles y cajas", "Packaging, Die-cuts & Boxes", "Diseño de Packaging · 2024", "Packaging Design · 2024", "Soluciones de empaque: cajas, bolsas, etiquetas y ediciones especiales.", "Packaging solutions: boxes, bags, labels and special editions."]
+      ["Celebrando Diversidades", "Diseño editorial y maquetación de libro", "Editorial Design & Book Layout", "Diseño Editorial · 2024", "Editorial Design · 2024", "Proyecto editorial completo: branding, ilustraciones, maquetación e idea creativa.", "Complete editorial project: branding, illustrations, layout and creative concept."],
+      ["Packaging", "Empaques, etiquetas y piezas gráficas", "Packaging, Labels & Graphic Pieces", "Diseño de Packaging", "Packaging Design", "Empaques, etiquetas, newsletters y publicaciones para Colombian Coffee.", "Packaging, labels, newsletters and social posts for Colombian Coffee."],
+      ["Rebranding Colombian Coffee", "Sello e identidad de marca", "Brand Seal & Identity", "Rebranding", "Rebranding", "Rediseño de la marca Colombian Coffee: sello, identidad visual y aplicaciones.", "Colombian Coffee brand redesign: seal, visual identity and applications."]
     ];
 
     /* ===== Enlaces a Behance (opcional por proyecto) ===== */
     const PROJECT_LINKS = {
-      "Branding de marcas": "https://www.behance.net/gallery/183817935/Moto-Moto-Refacciones-Manzanilo-Brand",
+      "Celebrando Diversidades": "https://www.behance.net/gallery/191228133/Celebrando-Diversidades-Cerebrales",
       "CCR": "https://www.behance.net/gallery/163585267/CCR-effect-Brand-Book-Presentation",
+      "Rebranding Colombian Coffee": "https://takoiartist.github.io/takoi-pdf/COLOMBIAN%20COFFEE%20LOGO.pdf",
       "Hangar": "https://www.behance.net/gallery/133050217/Hangar-Emprendedor",
       "Life Panama": "https://www.behance.net/gallery/82111929/Life-Panama-Revista-Inmobiliaria",
       "Lola's Day Care Panama": "https://www.behance.net/gallery/192503369/Web-Responsive-UX-UI-Design"
+    };
+
+    /* ===== Branding de marcas: [commit, archivo, nombre, enlace opcional] ===== */
+    const BE = "https://www.behance.net/gallery/";
+    const BRANDS = [
+      ["3c771274f667b13dc3707ec67f2a6a074226cd12", "2026-10-16%2013_21_56-%232-convertido-de-png.webp", "Moto Moto Refacciones", BE + "183817935/Moto-Moto-Refacciones-Manzanilo-Brand"],
+      ["c46aff8d83f903702169e4839f47f78d3f0b056b", "2026-10-16%2013_22_37-%232-convertido-de-png.webp", "BAR · Better Auto Rentals", BE + "193735735/BAR-Better-Auto-Rentals-Brand"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "2026-10-16%2013_23_19-%232-convertido-de-png.webp", "Clip", BE + "137837547/Clip-Brand"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "2026-10-16%2013_23_45-%232-convertido-de-png.webp", "Comic Wings", BE + "103560845/Logo-Comic-Wings"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "2026-10-16%2013_24_35-%232-convertido-de-png.webp", "González Motor Sport", BE + "163702613/Gonzalez-Motor-Sport-Brand-Book"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "Viernes%20de%20Delicias_v3.0-06-convertido-de-jpg.webp", "Delicias Santeñas"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "Viernes%20de%20Delicias_v3.0-08-convertido-de-jpg.webp", "Delicias Santeñas"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "Viernes%20de%20Delicias_v3.0-09-convertido-de-jpg.webp", "Delicias Santeñas"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "%5BJotako%5D%20Negos%20Geometricos-17.webp", "Neuro Children", BE + "103599659/Neuro-Children-Branding"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "amalia.webp", "Amalia"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "asmr.webp", "Valyum ASMR", BE + "112453053/Valyum-ASMR-Branding"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "feme%20basics.webp", "Feme Basics"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "los%20viajes%20de%20danis.webp", "Fantasía de Viaje", BE + "94711845/Fantasia-de-Viaje-Branding"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "mis%20empanada.webp", "Mis Empanadas"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "sasha.webp", "Sasha Boutique Col"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "toro%20autos.webp", "Toro Auto Sales · Branding + UI", BE + "183818661/Toro-Auto-Sales"],
+      ["4075cde21b5f6fb69fb19cca38da5f30024c84a7", "Ingrid%20Rivas%20BrandBook%202025.webp", "Ingrid Rivas · Brandbook 2025", "https://drive.google.com/file/d/1Y6qfeL6nxDHFhXQI2pM8EqG6Q1Wh__oL/view?usp=drive_link"]
+    ];
+
+    // Nombre y enlace por imagen (se muestran en el visor al ampliar)
+    const IMAGE_INFO = {};
+    BRANDS.forEach(b => { IMAGE_INFO[GH + b[0] + "/" + b[1]] = { cap: b[2], link: b[3] || "" }; });
+
+    /* ===== Brandbooks de muestra (botón en la tarjeta) ===== */
+    const BRANDBOOKS = {
+      "Branding de marcas": [
+        { name: "Ingrid Rivas · Brandbook 2025", url: "https://drive.google.com/file/d/1Y6qfeL6nxDHFhXQI2pM8EqG6Q1Wh__oL/view?usp=drive_link" },
+        { name: "Pardo Bohórquez Abogados · MDM 2020", url: "https://drive.google.com/file/d/1quO2P6u-brDc8Hl9SZAmL9QE09AnA2xw/view?usp=drive_link" },
+        { name: "Life by Paula Valencia · Manual de Marca 2020 (Lite)", url: "https://drive.google.com/file/d/1cP7zk6r3zVPUnX0VPn78N_TY6pLTqZIE/view?usp=drive_link" },
+        { name: "DALI · MDM 12.06.2020", url: "https://drive.google.com/file/d/1OOGVq6_0GJ4ELlOclLzWMMkf9rNDuZi4/view?usp=drive_link" },
+        { name: "Retiro Primavera · Manual de Marca", url: "https://drive.google.com/file/d/1LJDOotHQeivqQmSvIN3fACTDbORROjj8/view?usp=drive_link" },
+        { name: "Brandbook de muestra", url: "https://drive.google.com/file/d/1jLW3wRGWog51kIdBJIfxqaA4oy8xWLM4/view?usp=drive_link" }
+      ]
     };
 
     /* ===== Imágenes de Proyectos (la primera es la portada) ===== */
@@ -2152,9 +2241,7 @@
           "Mosaico%20isom%C3%A9trico%20de%20publicaciones%20de%20Instagram%20sobre%20RETIE%202024.webp"
         ])
       ],
-      "Branding de marcas": gh("3c771274f667b13dc3707ec67f2a6a074226cd12", [
-        "2026-10-16%2013_21_56-%232-convertido-de-png.webp"
-      ]),
+      "Branding de marcas": BRANDS.map(b => GH + b[0] + "/" + b[1]),
       "CCR": gh("45945061208c10e0496910400cba1f02f2be1930", [
         "%5BJotako%5D%20Behance%20CCR-10-convertido-de-png.webp",
         "BRAND-14.webp",
@@ -2176,6 +2263,7 @@
         "hangar.webp"
       ]),
       "Life Panama": gh("5b1c0fc04beab3b43b2a6e63108396a2f756446d", [
+        "Life%2018.webp",
         "life%20panama%20editorial.webp",
         "%5B015604%5D-convertido-de-jpg.webp",
         "%5B015592%5D-convertido-de-jpg.webp",
@@ -2184,6 +2272,36 @@
         "Life%20Newsletter_v2_%2314-01-01.webp",
         "Life%20Lanzamiento!%20%2328%20Junio_Mesa%20de%20trabajo%201.webp",
         "LIFE%20PANAMA%20%2327%20Edici%C3%B3n%20Mayo%202018_v1.3.2_049.webp"
+      ]),
+      "Celebrando Diversidades": gh("b59615b00d203a52a2273e9eab578393a025f42f", [
+        "editorial.webp",
+        "editorial%20mockup.webp",
+        "%5BJotako%5D%20Behance%20Editorial%202024-06-convertido-de-png.webp",
+        "%5BJotako%5D%20Behance%20Editorial%202024-05-convertido-de-png.webp",
+        "%5BJotako%5D%20Behance%20Editorial%202024-04-convertido-de-png.webp",
+        "%5BJotako%5D%20Behance%20Editorial%202024-03-convertido-de-png.webp",
+        "%5BJotako%5D%20Behance%20Editorial%202024-02-convertido-de-png.webp",
+        "Proyecto%20Editorial_Mesa%20de%20trabajo%201-convertido-de-png.webp",
+        "Proyecto%20Editorial-05-convertido-de-png.webp",
+        "Proyecto%20Editorial-04-convertido-de-png.webp",
+        "Proyecto%20Editorial-02-convertido-de-png.webp"
+      ]),
+      "Packaging": gh("f32847b1c9c354f9ca1e10302c2926c47894e9e5", [
+        "ChatGPT%20Image%2028%20sept%202026%2C%2012_23_19.webp",
+        "ChatGPT%20Image%2028%20sept%202026%2C%2012_26_54.webp",
+        "Colombian%20Coffee%20Etiquetas%20500gr.%20(7X15CM)%20Mula.webp",
+        "Colombian%20Coffee%20Newsletter%20JUNIO%2019.webp",
+        "Newsletter%20JUNIO%201X-07.webp",
+        "Plateado%20Regional-POST.webp",
+        "WhatsApp%20Image%202026-09-28%20at%2010.57.09%20AM.webp",
+        "classic-roast-by-colombiancoffeeus-752487.webp",
+        "para%20mockup.webp",
+        "para-enviar.webp"
+      ]),
+      "Rebranding Colombian Coffee": gh("17cd7bd74cf83544f18671696538ecd8646e04eb", [
+        "COLOMBIAN%20COFFEE%20BRAND_SELLO.jpg",
+        "COLOMBIAN%20COFFEE%20BRAND-09.png",
+        "COLOMBIAN%20COFFEE%20BRAND-08.png"
       ]),
       "Lola's Day Care Panama": gh("8c1ebeeb20bb923acbf91c9794ecb0908957d371", [
         "%5BJotako%5D%20Lola's%20App%20Ingreso%20UI-UX-08.webp",
@@ -2358,7 +2476,11 @@
                <small>${es ? p[3] : p[4]}</small>
              </div>`;
         const more = link
-          ? `<a class="proj-link" href="${link}" target="_blank" rel="noopener">${es ? 'Ver proyecto en Behance' : 'View project on Behance'} <i class="bi bi-box-arrow-up-right"></i></a>`
+          ? `<a class="proj-link" href="${link}" target="_blank" rel="noopener">${link.toLowerCase().endsWith('.pdf') ? (es ? 'Ver PDF del proyecto' : 'View project PDF') : (es ? 'Ver proyecto en Behance' : 'View project on Behance')} <i class="bi bi-box-arrow-up-right"></i></a>`
+          : '';
+        const bbs = BRANDBOOKS[p[0]];
+        const bb = bbs
+          ? `<details class="bb"><summary><i class="bi bi-book"></i> Brandbooks</summary><ul>${bbs.map(b => `<li><a href="${b.url}" target="_blank" rel="noopener">${b.name} <i class="bi bi-box-arrow-up-right"></i></a></li>`).join('')}</ul></details>`
           : '';
         return `
           <article class="card">
@@ -2366,7 +2488,7 @@
             <h3>${p[0]}</h3>
             <div class="m">${es ? p[1] : p[2]}</div>
             <p>${es ? p[5] : p[6]}</p>
-            ${more}
+            ${more}${bb}
           </article>
         `;
       }).join('');
@@ -2642,7 +2764,7 @@
 
     /* ===== Lightbox (Proyectos) con zoom ===== */
     const lb = $('#lb'), lbImg = $('#lb-img'), lbCap = $('#lb-cap'), lbTh = $('#lb-thumbs');
-    const lbStage = $('#lb-stage'), lbLevel = $('#lb-level');
+    const lbStage = $('#lb-stage'), lbLevel = $('#lb-level'), lbLink = $('#lb-link');
     let lbImgs = [], lbIdx = 0, lbTitle = '';
     const Z = { s: 1, x: 0, y: 0 }, Z_MAX = 5;
 
@@ -2675,7 +2797,16 @@
 
     function renderLB() {
       lbImg.src = lbImgs[lbIdx];
-      lbCap.textContent = lbTitle + (lbImgs.length > 1 ? ` · ${lbIdx + 1} / ${lbImgs.length}` : '');
+      const info = IMAGE_INFO[lbImgs[lbIdx]] || {};
+      lbCap.textContent = (info.cap || lbTitle) + (lbImgs.length > 1 ? ` · ${lbIdx + 1} / ${lbImgs.length}` : '');
+      if (info.link) {
+        const es = LANG === 'es', drive = info.link.includes('drive.google');
+        lbLink.href = info.link;
+        lbLink.innerHTML = (drive ? (es ? 'Ver brandbook' : 'View brandbook') : (es ? 'Ver proyecto' : 'View project')) + ' <i class="bi bi-box-arrow-up-right"></i>';
+        lbLink.hidden = false;
+      } else {
+        lbLink.hidden = true;
+      }
       lbTh.innerHTML = lbImgs.length > 1
         ? lbImgs.map((s, i) => `<button data-i="${i}" class="${i === lbIdx ? 'on' : ''}"><img src="${s}" alt=""></button>`).join('')
         : '';
