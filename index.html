@@ -367,52 +367,14 @@
       }
     }
 
-    .h1 {
-      top: 6px;
-      left: 6px;
-    }
-
-    .h2 {
-      top: 6px;
-      left: calc(50% - 6px);
-      animation-delay: .2s, 2.1s;
-    }
-
-    .h3 {
-      top: 6px;
-      right: 6px;
-      animation-delay: .3s, 2.2s;
-    }
-
-    .h4 {
-      top: calc(50% - 6px);
-      left: 6px;
-      animation-delay: .4s, 2.3s;
-    }
-
-    .h5 {
-      top: calc(50% - 6px);
-      right: 6px;
-      animation-delay: .5s, 2.4s;
-    }
-
-    .h6 {
-      bottom: 6px;
-      left: 6px;
-      animation-delay: .6s, 2.5s;
-    }
-
-    .h7 {
-      bottom: 6px;
-      left: calc(50% - 6px);
-      animation-delay: .7s, 2.6s;
-    }
-
-    .h8 {
-      bottom: 6px;
-      right: 6px;
-      animation-delay: .8s, 2.7s;
-    }
+    .h1 { top: 6px; left: 6px; }
+    .h2 { top: 6px; left: calc(50% - 6px); animation-delay: .2s, 2.1s; }
+    .h3 { top: 6px; right: 6px; animation-delay: .3s, 2.2s; }
+    .h4 { top: calc(50% - 6px); left: 6px; animation-delay: .4s, 2.3s; }
+    .h5 { top: calc(50% - 6px); right: 6px; animation-delay: .5s, 2.4s; }
+    .h6 { bottom: 6px; left: 6px; animation-delay: .6s, 2.5s; }
+    .h7 { bottom: 6px; left: calc(50% - 6px); animation-delay: .7s, 2.6s; }
+    .h8 { bottom: 6px; right: 6px; animation-delay: .8s, 2.7s; }
 
     .tag {
       position: absolute;
@@ -502,17 +464,9 @@
     }
 
     @keyframes drift {
-      25% {
-        transform: translate(-90px, -70px);
-      }
-
-      50% {
-        transform: translate(-200px, -30px);
-      }
-
-      75% {
-        transform: translate(-60px, 10px);
-      }
+      25% { transform: translate(-90px, -70px); }
+      50% { transform: translate(-200px, -30px); }
+      75% { transform: translate(-60px, 10px); }
     }
 
     .stage {
@@ -535,9 +489,7 @@
     }
 
     @keyframes grid {
-      to {
-        background-position: 0 28px, 28px 0;
-      }
+      to { background-position: 0 28px, 28px 0; }
     }
 
     .stage::after {
@@ -552,9 +504,7 @@
     }
 
     @keyframes scan {
-      to {
-        left: 115%;
-      }
+      to { left: 115%; }
     }
 
     .poly {
@@ -568,9 +518,7 @@
     }
 
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      to { transform: rotate(360deg); }
     }
 
     .photo {
@@ -659,45 +607,15 @@
     }
 
     @keyframes g1 {
-
-      0%,
-      90%,
-      100% {
-        opacity: 0;
-      }
-
-      92% {
-        opacity: .85;
-        transform: translate(-4px, 1px);
-        clip-path: inset(10% 0 55% 0);
-      }
-
-      95% {
-        opacity: .85;
-        transform: translate(3px, -1px);
-        clip-path: inset(60% 0 8% 0);
-      }
+      0%, 90%, 100% { opacity: 0; }
+      92% { opacity: .85; transform: translate(-4px, 1px); clip-path: inset(10% 0 55% 0); }
+      95% { opacity: .85; transform: translate(3px, -1px); clip-path: inset(60% 0 8% 0); }
     }
 
     @keyframes g2 {
-
-      0%,
-      91%,
-      100% {
-        opacity: 0;
-      }
-
-      93% {
-        opacity: .85;
-        transform: translate(4px, -1px);
-        clip-path: inset(50% 0 20% 0);
-      }
-
-      96% {
-        opacity: .85;
-        transform: translate(-3px, 1px);
-        clip-path: inset(5% 0 70% 0);
-      }
+      0%, 91%, 100% { opacity: 0; }
+      93% { opacity: .85; transform: translate(4px, -1px); clip-path: inset(50% 0 20% 0); }
+      96% { opacity: .85; transform: translate(-3px, 1px); clip-path: inset(5% 0 70% 0); }
     }
 
     .strike {
@@ -713,21 +631,12 @@
     }
 
     @keyframes draw {
-      from {
-        transform: scaleX(0);
-      }
+      from { transform: scaleX(0); }
     }
 
     @keyframes wob {
-
-      92%,
-      100% {
-        transform: none;
-      }
-
-      94% {
-        transform: translateY(-3px) skewX(-20deg);
-      }
+      92%, 100% { transform: none; }
+      94% { transform: translateY(-3px) skewX(-20deg); }
     }
 
     /* ===== ABOUT ===== */
@@ -1033,6 +942,9 @@
       position: relative;
       height: 640px;
       margin: 0 -8px;
+      min-width: 1400px;
+      overflow-x: auto;
+      overflow-y: hidden;
     }
 
     .tw svg {
@@ -1063,10 +975,10 @@
     .nd {
       position: absolute;
       left: calc(var(--t)*100%);
-      width: 176px;
+      width: 140px;
       transform: translateX(-50%);
-      font-size: .7rem;
-      line-height: 1.4;
+      font-size: .65rem;
+      line-height: 1.3;
     }
 
     .nd.up {
@@ -1299,29 +1211,14 @@
 
     /* ===== RESPONSIVE ===== */
     @media(max-width:1100px) {
-      nav ul {
-        gap: 16px;
-      }
-
-      nav a {
-        font-size: .76rem;
-      }
-
-      .brand small {
-        display: none;
-      }
-
-      #lang,
-      .btn-contact {
-        width: 110px;
-      }
+      nav ul { gap: 16px; }
+      nav a { font-size: .76rem; }
+      .brand small { display: none; }
+      #lang, .btn-contact { width: 110px; }
     }
 
     @media(max-width:860px) {
-      #burger {
-        display: block;
-      }
-
+      #burger { display: block; }
       nav {
         position: absolute;
         top: 80px;
@@ -1330,56 +1227,29 @@
         background: var(--dark);
         display: none;
       }
-
-      nav.open {
-        display: block;
-      }
-
+      nav.open { display: block; }
       nav ul {
         flex-direction: column;
         gap: 0;
         padding: 8px 28px 20px;
       }
+      nav a { display: block; padding: 12px 0; }
+      .about, .grid { grid-template-columns: 1fr; }
+      .about { gap: 40px; }
+      .btn-contact { display: none; }
+      .t-exp { right: -6px; }
+      .anchor { display: none; }
 
-      nav a {
-        display: block;
-        padding: 12px 0;
-      }
-
-      .about,
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .about {
-        gap: 40px;
-      }
-
-      .btn-contact {
-        display: none;
-      }
-
-      .t-exp {
-        right: -6px;
-      }
-
-      .anchor {
-        display: none;
-      }
-
+      /* Timeline responsive: lista vertical */
       .tw {
         height: auto;
         margin: 0;
         padding-left: 28px;
         border-left: 2px solid #000;
+        min-width: 0;
+        overflow-x: visible;
       }
-
-      .tw svg,
-      .dot,
-      .nd::before {
-        display: none;
-      }
-
+      .tw svg, .dot, .nd::before { display: none; }
       .nd {
         position: relative;
         left: auto;
@@ -1389,7 +1259,6 @@
         top: auto !important;
         margin-bottom: 26px;
       }
-
       .nd::after {
         content: "";
         position: absolute;
@@ -1404,27 +1273,13 @@
     }
 
     @media(max-width:560px) {
-
-      .two,
-      .logos {
-        grid-template-columns: 1fr;
-      }
-
-      .logos {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .tf {
-        flex-direction: column;
-        gap: 6px;
-      }
+      .two, .logos { grid-template-columns: 1fr; }
+      .logos { grid-template-columns: 1fr 1fr; }
+      .tf { flex-direction: column; gap: 6px; }
     }
 
     @media(prefers-reduced-motion:reduce) {
-
-      *,
-      ::before,
-      ::after {
+      *, ::before, ::after {
         animation: none !important;
         transition: none !important;
       }
@@ -1444,9 +1299,7 @@
       gap: 8px;
     }
 
-    #lb[hidden] {
-      display: none;
-    }
+    #lb[hidden] { display: none; }
 
     #lb figure {
       margin: 0;
@@ -1529,9 +1382,7 @@
         grid-template-columns: 40px 1fr 40px;
         padding: 8px;
       }
-
-      #lb .pv,
-      #lb .nx {
+      #lb .pv, #lb .nx {
         width: 36px;
         height: 36px;
       }
@@ -1667,13 +1518,8 @@
       color: #fff;
     }
 
-    .carousel-nav-btn.prev {
-      left: 16px;
-    }
-
-    .carousel-nav-btn.next {
-      right: 16px;
-    }
+    .carousel-nav-btn.prev { left: 16px; }
+    .carousel-nav-btn.next { right: 16px; }
 
     .carousel-counter {
       position: absolute;
@@ -1695,14 +1541,8 @@
       scroll-behavior: smooth;
     }
 
-    .thumb-strip::-webkit-scrollbar {
-      height: 5px;
-    }
-
-    .thumb-strip::-webkit-scrollbar-thumb {
-      background: #e1dcea;
-      border-radius: 10px;
-    }
+    .thumb-strip::-webkit-scrollbar { height: 5px; }
+    .thumb-strip::-webkit-scrollbar-thumb { background: #e1dcea; border-radius: 10px; }
 
     .thumb-item {
       flex: 0 0 auto;
@@ -1725,24 +1565,15 @@
       object-fit: contain;
     }
 
-    .thumb-item:hover {
-      opacity: .9;
-    }
-
+    .thumb-item:hover { opacity: .9; }
     .thumb-item.active {
       border-color: #6B4491;
       opacity: 1;
     }
 
     @media (max-width: 767px) {
-      .carousel-stage {
-        height: 300px;
-      }
-
-      .carousel-nav-btn {
-        width: 38px;
-        height: 38px;
-      }
+      .carousel-stage { height: 300px; }
+      .carousel-nav-btn { width: 38px; height: 38px; }
     }
   </style>
 </head>
@@ -1803,7 +1634,7 @@
             <path d="M100,10L100,190M20,60L160,150M180,60L40,150" />
           </svg>
           <div class="photo">
-            <img src="https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/338645f70219daeb0424da5f0ba17741557be422/jorge%20%20imagen.webp" alt="Armando Castaño">
+            <img src="https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/main/Jorge-Jotako-sin-fondo.png" alt="Armando Castaño">
           </div>
           <div class="txt">
             <h1 id="kin" aria-label="Armando Castaño, Director Creativo">
@@ -1939,6 +1770,26 @@
       ["Packaging", "Empaques, troqueles y cajas", "Packaging, Die-cuts & Boxes", "Diseño de Packaging · 2024", "Packaging Design · 2024", "Soluciones de empaque: cajas, bolsas, etiquetas y ediciones especiales.", "Packaging solutions: boxes, bags, labels and special editions."]
     ];
 
+    /* ===== Imágenes de Proyectos ===== */
+    const PROJECT_IMAGES = {
+      "Servimeters": [
+        // Batch original (7)
+        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Manual-de-marca-SERVIMETERS-en-azul.webp",
+        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Mockup-corporativo-azul-con-portafolio-abierto.webp",
+        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Mockup-corporativo-del-portafolio-Servimeters.webp",
+        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Mockup-corporativo-en-laptop-con-luz-geom%C3%A9trica.webp",
+        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Papeler%C3%ADa-corporativa-azul-de-Servimeters.webp",
+        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Presentaci%C3%B3n-de-Instagram-sobre-ascensores.webp",
+        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/a95e9fbda2a50f088b079c5eb0dcca47a7940d1c/Sello-de-marca-Servimeters-en-papel-blanco%20(1).webp",
+        // Nuevas (RETIE / Instagram 2024)
+        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/bb23e63de0e1dfa00091418ca09284edfcc01599/Collage%20de%20publicaciones%20de%20Instagram%20sobre%20RETIE.webp",
+        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/bb23e63de0e1dfa00091418ca09284edfcc01599/Mockup%20Instagram%20de%20formaci%C3%B3n%20industrial.webp",
+        "https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/bb23e63de0e1dfa00091418ca09284edfcc01599/Mosaico%20isom%C3%A9trico%20de%20publicaciones%20de%20Instagram%20sobre%20RETIE%202024.webp"
+      ]
+      // Agrega más proyectos aquí cuando tengas imágenes, por ejemplo:
+      // "Hangar / CCR": [ ... ],
+    };
+
     const PLACE = {
       co: ["Colombia", "Colombia"],
       es: ["España", "Spain"],
@@ -1960,7 +1811,7 @@
       ["PERFECT COLORS", 2020, "co", "Diseñador Gráfico & Ilustrador Digital", "Graphic Designer & Digital Illustrator", "Contenido para redes, sublimación e ilustración de personajes.", "Social media content, sublimation, and character illustration."],
       ["NEUROPUBLICIDAD", 2021, "co", "Diseñador Gráfico", "Graphic Designer", "Piezas gráficas para comunicación y publicidad. Plantillas funcionales.", "Graphic pieces for communication and advertising. Functional templates."],
       ["CCR", 2022, "us", "Director Creativo y Diseñador Gráfico", "Creative Director & Graphic Designer", "Rebranding de cuentas, manuales de marca y mentoría a diseñadores.", "Account rebranding, brand manuals, and designer mentoring."],
-      ["SERVIMETERS", 2024 - 2026, "co", "Diseñador de Publicidad", "Advertising Designer", "Diseño UI, brochures, campañas y comunicación corporativa.", "UI design, brochures, campaigns, and corporate communication."]
+      ["SERVIMETERS", "2024 - 2026", "co", "Diseñador de Publicidad", "Advertising Designer", "Diseño UI, brochures, campañas y comunicación corporativa.", "UI design, brochures, campaigns, and corporate communication."]
     ];
 
     /* ===== Logofolios Data ===== */
@@ -2082,17 +1933,35 @@
     /* ===== Render Proyectos ===== */
     const projWrap = $('#projects');
     if (projWrap) {
-      projWrap.innerHTML = PROJECTS.map((p, i) => `
-        <article class="card">
-          <div class="mock">
-            <b>${p[0]}</b>
-            <small>${LANG==='es'?p[3]:p[4]}</small>
-          </div>
-          <h3>${p[0]}</h3>
-          <div class="m">${LANG==='es'?p[1]:p[2]}</div>
-          <p>${LANG==='es'?p[5]:p[6]}</p>
-        </article>
-      `).join('');
+      projWrap.innerHTML = PROJECTS.map((p, i) => {
+        const imgs = PROJECT_IMAGES[p[0]];
+        const hasImgs = imgs && imgs.length > 0;
+        const mock = hasImgs
+          ? `<div class="mock has-img" data-project="${p[0]}">
+               <img src="${imgs[0]}" alt="${p[0]}" loading="lazy">
+               <span class="cnt">${imgs.length} fotos</span>
+             </div>`
+          : `<div class="mock">
+               <b>${p[0]}</b>
+               <small>${LANG==='es'?p[3]:p[4]}</small>
+             </div>`;
+        return `
+          <article class="card">
+            ${mock}
+            <h3>${p[0]}</h3>
+            <div class="m">${LANG==='es'?p[1]:p[2]}</div>
+            <p>${LANG==='es'?p[5]:p[6]}</p>
+          </article>
+        `;
+      }).join('');
+
+      projWrap.querySelectorAll('.mock.has-img').forEach(mock => {
+        mock.addEventListener('click', () => {
+          const projectName = mock.dataset.project;
+          const imgs = PROJECT_IMAGES[projectName];
+          if (imgs) openLB(imgs, 0, projectName);
+        });
+      });
     }
 
     /* ===== Render Timeline ===== */
@@ -2101,10 +1970,10 @@
       const total = JOBS.length;
       const pts = JOBS.map((j, i) => {
         const t = i / (total - 1);
-        const y = i % 2 === 0 ? 80 : 560;
+        const y = i % 4 === 0 ? 60 : i % 4 === 1 ? 200 : i % 4 === 2 ? 380 : 540;
         return { t, y, j, i };
       });
-      const W = 100, H = 640;
+      const W = 1000, H = 640;
       const xs = pts.map(p => p.t * W);
       const ys = pts.map(p => p.y);
       let d = `M ${xs[0]} ${ys[0]}`;
@@ -2122,7 +1991,8 @@
           const role = LANG==='es'?j[3]:j[4];
           const desc = LANG==='es'?j[5]:j[6];
           const hl = j[1]==='2024 - 2026' ? ' hl' : '';
-          return `<div class="nd ${p.i%2===0?'up':'dn'}${hl}" style="--t:${p.t};--y:${p.y}">
+          const dir = p.i%2===0 ? 'up' : 'dn';
+          return `<div class="nd ${dir}${hl}" style="--t:${p.t};--y:${p.y}">
             <span class="k">${j[1]}</span>
             <h3>${j[0]}</h3>
             <div class="loc">${loc}</div>
@@ -2223,16 +2093,6 @@
       });
     }
 
-    // Lightbox para logofolio (modal de bootstrap)
-    const lightboxModal = document.getElementById('lightboxModal');
-    if (lightboxModal) {
-      lightboxModal.addEventListener('show.bs.modal', (event) => {
-        const trigger = event.relatedTarget;
-        const src = trigger ? trigger.getAttribute('src') : '';
-        document.getElementById('lightboxImg').setAttribute('src', src);
-      });
-    }
-
     /* ===== Lightbox (Proyectos) ===== */
     const lb = $('#lb'), lbImg = $('#lb-img'), lbCap = $('#lb-cap'), lbTh = $('#lb-thumbs');
     let lbImgs = [], lbIdx = 0;
@@ -2252,6 +2112,7 @@
       lb.hidden = true;
       document.body.style.overflow = '';
     }
+
     if (lb) {
       lb.querySelector('.x').onclick = closeLB;
       lb.querySelector('.pv').onclick = () => { lbIdx = (lbIdx - 1 + lbImgs.length) % lbImgs.length; openLB(lbImgs, lbIdx, lbCap.textContent); };
@@ -2278,9 +2139,7 @@
         $('#l-es').classList.toggle('on', LANG === 'es');
         $('#l-en').classList.toggle('on', LANG === 'en');
         document.documentElement.lang = LANG;
-        // Re-render dinámicos
         renderAll();
-        // Cambiar textos data-en
         $$('[data-en]').forEach(el => {
           if (!el.dataset.es) el.dataset.es = el.textContent;
           el.textContent = LANG === 'es' ? el.dataset.es : el.dataset.en;
@@ -2294,20 +2153,39 @@
 
     function renderAll() {
       if (projWrap) {
-        projWrap.innerHTML = PROJECTS.map(p => `
-          <article class="card">
-            <div class="mock"><b>${p[0]}</b><small>${LANG==='es'?p[3]:p[4]}</small></div>
-            <h3>${p[0]}</h3>
-            <div class="m">${LANG==='es'?p[1]:p[2]}</div>
-            <p>${LANG==='es'?p[5]:p[6]}</p>
-          </article>`).join('');
+        projWrap.innerHTML = PROJECTS.map(p => {
+          const imgs = PROJECT_IMAGES[p[0]];
+          const hasImgs = imgs && imgs.length > 0;
+          const mock = hasImgs
+            ? `<div class="mock has-img" data-project="${p[0]}">
+                 <img src="${imgs[0]}" alt="${p[0]}" loading="lazy">
+                 <span class="cnt">${imgs.length} fotos</span>
+               </div>`
+            : `<div class="mock">
+                 <b>${p[0]}</b>
+                 <small>${LANG==='es'?p[3]:p[4]}</small>
+               </div>`;
+          return `
+            <article class="card">
+              ${mock}
+              <h3>${p[0]}</h3>
+              <div class="m">${LANG==='es'?p[1]:p[2]}</div>
+              <p>${LANG==='es'?p[5]:p[6]}</p>
+            </article>`;
+        }).join('');
+        projWrap.querySelectorAll('.mock.has-img').forEach(mock => {
+          mock.addEventListener('click', () => {
+            const projectName = mock.dataset.project;
+            const imgs = PROJECT_IMAGES[projectName];
+            if (imgs) openLB(imgs, 0, projectName);
+          });
+        });
       }
       if (tlWrap) {
         const total = JOBS.length;
-        const pts = JOBS.map((j, i) => ({ t: i / (total - 1), y: i % 2 === 0 ? 80 : 560, j, i }));
-        const W = 100, H = 640;
-        const xs = pts.map(p => p.t * W),
-          ys = pts.map(p => p.y);
+        const pts = JOBS.map((j, i) => ({ t: i / (total - 1), y: i % 4 === 0 ? 60 : i % 4 === 1 ? 200 : i % 4 === 2 ? 380 : 540, j, i }));
+        const W = 1000, H = 640;
+        const xs = pts.map(p => p.t * W), ys = pts.map(p => p.y);
         let d = `M ${xs[0]} ${ys[0]}`;
         for (let i = 1; i < xs.length; i++) {
           const cx = (xs[i - 1] + xs[i]) / 2;
@@ -2317,13 +2195,13 @@
           <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="${d}"/></svg>
           ${pts.map(p=>`<i class="dot" style="--t:${p.t};--y:${p.y}"></i>`).join('')}
           ${pts.map(p=>{
-            const j = p.j,
-              place = PLACE[j[2]];
+            const j = p.j, place = PLACE[j[2]];
             const loc = LANG === 'es' ? place[0] : place[1];
             const role = LANG === 'es' ? j[3] : j[4];
             const desc = LANG === 'es' ? j[5] : j[6];
             const hl = j[1] === '2024 - 2026' ? ' hl' : '';
-            return `<div class="nd ${p.i%2===0?'up':'dn'}${hl}" style="--t:${p.t};--y:${p.y}">
+            const dir = p.i%2===0 ? 'up' : 'dn';
+            return `<div class="nd ${dir}${hl}" style="--t:${p.t};--y:${p.y}">
               <span class="k">${j[1]}</span><h3>${j[0]}</h3>
               <div class="loc">${loc}</div><div class="r">${role}</div>
               <p>${desc}</p>${hl?'<em>Destacado</em>':''}
