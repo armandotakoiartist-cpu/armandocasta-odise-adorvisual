@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Armando Castaño · Director Creativo y Director de Arte</title>
+  <script>
+    /* Oculta el nombre del hero hasta que carguen las fuentes (máx. 3 s) para evitar el salto de tipografía */
+    document.documentElement.classList.add('fl');
+    setTimeout(function () { document.documentElement.classList.remove('fl'); }, 3000);
+  </script>
   <meta name="description" content="Portafolio de Armando Castaño: Director Creativo y Art Director con más de 10 años de experiencia en branding, diseño editorial y motion graphics.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -539,47 +544,30 @@
       to { left: 115%; }
     }
 
-    .poly,
-    .penlayer {
+    /* ===== Vectores sobre el nombre ===== */
+    .vec {
       position: absolute;
-      left: 4%;
-      top: 8%;
-      width: 50%;
+      inset: 0;
+      z-index: 6;
+      pointer-events: none;
       overflow: visible;
     }
 
-    .poly {
-      opacity: .9;
+    .vec svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
     }
 
-    .penlayer {
-      z-index: 4;
-      pointer-events: none;
-    }
-
-    #vLines { opacity: 0; transition: opacity .8s; }
-
-    #vAnchors rect {
-      fill: var(--lav2);
-      stroke: var(--takoi);
-      stroke-width: 1;
-      opacity: 0;
-      transition: opacity .25s, fill .15s;
-    }
-
-    #vAnchors rect.on { opacity: 1; }
-    #vAnchors rect.sel { fill: var(--takoi); stroke: var(--lav2); filter: drop-shadow(0 0 3px rgba(169, 140, 255, .9)); }
-
-    #vHandles { opacity: 0; transition: opacity .15s; }
-    #vHandles.on { opacity: 1; }
-
-    #vPen {
-      opacity: 0;
-      transition: opacity .4s;
-      filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .55));
-    }
-
-    #vPen.on { opacity: 1; }
+    .vx { opacity: 0; transition: opacity .3s; }
+    .vx.on { opacity: 1; }
+    .vh { fill: var(--lav2); stroke: var(--takoi); stroke-width: 1.2; }
+    .vh.sel { fill: var(--takoi); stroke: var(--lav2); filter: drop-shadow(0 0 3px rgba(169, 140, 255, .9)); }
+    .vpen { filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .55)); }
+    .vA { display: inline-block; }
 
     @keyframes spin {
       to { transform: rotate(360deg); }
@@ -622,7 +610,10 @@
 
     .txt h1 {
       font: inherit;
+      transition: opacity .5s ease;
     }
+
+    .fl .txt h1 { opacity: 0; }
 
     .ln {
       display: block;
@@ -1286,6 +1277,74 @@
       text-transform: uppercase;
     }
 
+    /* detalle desplegable: necesidad, aporte y resultado */
+    .tl-more {
+      margin-top: 16px;
+      text-align: left;
+    }
+
+    .tl-item.l .tl-more > summary {
+      margin-left: auto;
+    }
+
+    .tl-more > summary {
+      display: block;
+      width: max-content;
+      cursor: pointer;
+      list-style: none;
+      padding: 6px 16px;
+      border-radius: 30px;
+      border: 1.5px solid var(--takoi);
+      color: var(--takoi);
+      font-size: .78em;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .tl-more > summary::-webkit-details-marker { display: none; }
+    .tl-more > summary::after { content: " +"; }
+    .tl-more[open] > summary::after { content: " –"; }
+    .tl-more > summary:hover { background: var(--takoi); color: #fff; }
+
+    .tl-more .tl-det {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(106, 68, 145, .35);
+    }
+
+    .tl-more h4 {
+      margin: 14px 0 4px;
+      font-size: .72em;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--takoi);
+    }
+
+    .tl-more h4:first-child { margin-top: 0; }
+
+    .tl-more .tl-det p,
+    .tl-more .tl-det li {
+      margin: 0;
+      font-size: .88em;
+      line-height: 1.55;
+      color: var(--gray);
+    }
+
+    .tl-more ul {
+      margin: 0;
+      padding-left: 1.1em;
+      display: grid;
+      gap: 4px;
+    }
+
+    .tl-item.hl .tl-more > summary { border-color: var(--off); color: var(--off); }
+    .tl-item.hl .tl-more > summary:hover { background: var(--off); color: var(--takoi); }
+    .tl-item.hl .tl-more .tl-det { border-top-color: rgba(245, 240, 232, .35); }
+    .tl-item.hl .tl-more h4 { color: var(--lav2); }
+    .tl-item.hl .tl-more .tl-det p,
+    .tl-item.hl .tl-more .tl-det li { color: var(--off); }
+
     /* tarjeta destacada (empleo actual) */
     .tl-item.hl .tl-card {
       background: var(--takoi);
@@ -1482,6 +1541,28 @@
       color: var(--lav2);
     }
 
+    footer p.made {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      color: rgba(245, 240, 232, .7);
+      font-size: .78rem;
+    }
+
+    footer p.made img {
+      width: auto;
+      height: 26px;
+      display: block;
+    }
+
+    footer p.made b {
+      color: var(--off);
+      letter-spacing: .04em;
+    }
+
     footer p {
       color: rgba(245, 240, 232, .5);
       font-size: .7rem;
@@ -1618,6 +1699,12 @@
     }
 
     #lb-stage.drag img { transition: none; }
+
+    #lb.logo #lb-img {
+      background: #fff;
+      padding: clamp(16px, 3vw, 40px);
+      border-radius: 14px;
+    }
 
     #lb .zt {
       position: absolute;
@@ -2010,26 +2097,6 @@
           <path d="M2 6C34 2 58 20 64 50M64 50l-9-9M64 50l8-10" />
         </svg>
         <div class="stage">
-          <svg class="poly" viewBox="0 0 200 200" fill="none" stroke="#a98cff" stroke-width=".8" stroke-linejoin="round" aria-hidden="true">
-            <polyline id="vOuter" points="" />
-            <polyline id="vInner" points="" />
-            <path id="vLines" d="" />
-          </svg>
-          <svg class="penlayer" viewBox="0 0 200 200" aria-hidden="true">
-            <g id="vHandles" stroke="#E2DCEA" stroke-width=".8">
-              <line id="vH1" /><line id="vH2" />
-              <circle id="vC1" r="1.8" fill="#E2DCEA" /><circle id="vC2" r="1.8" fill="#E2DCEA" />
-            </g>
-            <g id="vAnchors"></g>
-            <g id="vPen" transform="translate(100 10)">
-              <g transform="rotate(28) scale(.85)">
-                <path d="M0 0L-6 -13Q-6.5 -19 -4 -22L4 -22Q6.5 -19 6 -13Z" fill="#F5F0E8" stroke="#1a0f2e" stroke-width="1.1" stroke-linejoin="round" />
-                <path d="M0 -3L0 -13" stroke="#1a0f2e" stroke-width="1" />
-                <circle cx="0" cy="-14.5" r="1.7" fill="#1a0f2e" />
-                <rect x="-4.6" y="-28" width="9.2" height="6" rx="1.4" fill="#1a0f2e" stroke="#F5F0E8" stroke-width="1" />
-              </g>
-            </g>
-          </svg>
           <div class="photo">
             <img src="https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/main/Jorge-Jotako-sin-fondo.png" alt="Armando Castaño">
           </div>
@@ -2071,7 +2138,7 @@
             <span data-en="Corporate Comms">Comunicación Corporativa</span>
             <span data-en="Creative Direction">Dirección Creativa</span>
           </div>
-          <a class="pill outline" href="mailto:armando.takoi.artist@gmail.com?subject=Solicitud%20de%20CV%20-%20Armando%20Casta%C3%B1o">
+          <a class="pill outline" href="Dise%C3%B1ador%20Gr%C3%A1fico%20y%20Visual%20-%20Armando%20Casta%C3%B1o%20CV%202026.pdf" download="Armando Castaño - CV 2026.pdf">
             <span data-en="Download CV">Descargar CV</span>
           </a>
         </div>
@@ -2085,7 +2152,7 @@
         <h2 class="t" style="margin-top:20px" data-en="Featured Projects">Proyectos Destacados</h2>
         <p class="sub" data-en="The best of my recent work">Lo mejor de mi trabajo reciente</p>
         <div class="grid" id="projects"></div>
-        <a class="pill more" href="https://www.behance.net/jotako" target="_blank" rel="noopener" data-en="View all projects">Ver todos los proyectos</a>
+        <a class="pill more" href="https://www.behance.net/armandotakoi" target="_blank" rel="noopener" data-en="View all projects">Ver todos los proyectos</a>
       </div>
     </section>
 
@@ -2158,11 +2225,16 @@
       <a href="https://instagram.com/Takoiartist" target="_blank" rel="noopener">
         <img src="https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/ea11d1f15eab902f52023e64a1fb70aa56b20a30/Recurso%20131.png" alt="Instagram" height="20"> @Takoiartist
       </a>
-      <a href="https://www.behance.net/jotako" target="_blank" rel="noopener">
-        <img src="https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/ea11d1f15eab902f52023e64a1fb70aa56b20a30/behance.png" alt="Behance" height="20"> @jotako
+      <a href="https://www.behance.net/armandotakoi" target="_blank" rel="noopener">
+        <img src="https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/ea11d1f15eab902f52023e64a1fb70aa56b20a30/behance.png" alt="Behance" height="20"> @armandotakoi
       </a>
     </div>
     <p data-en="© 2026 Armando Castaño · All rights reserved">© 2026 Armando Castaño · Todos los derechos reservados</p>
+    <p class="made">
+      <span data-en="Website made by">Página realizada por</span>
+      <img src="https://raw.githubusercontent.com/armandotakoiartist-cpu/armandocasta-odise-adorvisual/main/Recurso%20133.png" alt="Meiw Creative" height="26">
+      <b>Meiw Creative</b>
+    </p>
   </footer>
 
   <!-- WHATSAPP FLOTANTE -->
@@ -2208,7 +2280,6 @@
     // [nombre, subtítulo ES, subtítulo EN, etiqueta ES, etiqueta EN, descripción ES, descripción EN]
     const PROJECTS = [
       ["Servimeters", "Diseño UI, landing pages y multimedia", "UI Design, Landing Pages & Multimedia", "Diseño UI · 2024", "UI Design · 2024", "Diseño UI y landing pages, edición de reels y multimedia para redes sociales, cursos y webinars, además de folletos, flyers y stand para ferias.", "UI design and landing pages, reel editing and multimedia for social media, courses and webinars, plus brochures, flyers and trade-show stand."],
-      ["Hierros y Cementos Social Media", "Carruseles para redes sociales", "Social Media Carousels", "Social Media", "Social Media", "Diseño de carruseles y contenido para las redes sociales de Hierros y Cementos.", "Carousel and content design for the Hierros y Cementos social media channels."],
       ["Branding de marcas", "Identidad visual para varias marcas", "Visual identity for multiple brands", "Branding", "Branding", "Selección de proyectos de branding: logotipos, aplicaciones y piezas gráficas para distintas marcas.", "A selection of branding projects: logos, applications and graphic pieces for different brands."],
       ["CCR", "Manual de marca y sistema visual", "Brand Guidelines & Visual System", "Rebranding · 2022", "Rebranding · 2022", "Rebranding completo, manual de marca y aplicación de la identidad visual.", "Complete rebranding, brand manual and visual identity application."],
       ["Hangar", "Branding y piezas publicitarias", "Branding & Advertising Pieces", "Branding", "Branding", "Identidad de marca, publicidad y volantes para Hangar Emprendedor.", "Brand identity, advertising and flyers for Hangar Emprendedor."],
@@ -2309,14 +2380,6 @@
           "stories_11zon.webp"
         ])
       ],
-      "Hierros y Cementos Social Media": gh("main", [
-        "Carruseles-Hierros-y-Cementos_1_.webp",
-        "Carruseles-Hierros-y-Cementos.webp",
-        "Carruseles-Hierros-y-Cementos_2_.webp",
-        "Carruseles-Hierros-y-Cementos_3_.webp",
-        "Carruseles-Hierros-y-Cementos_5_.webp",
-        "Carruseles-Hierros-y-Cementos_6_.webp"
-      ]),
       "Branding de marcas": BRANDS.map(b => GH + b[0] + "/" + b[1]),
       "CCR": gh("45945061208c10e0496910400cba1f02f2be1930", [
         "%5BJotako%5D%20Behance%20CCR-10-convertido-de-png.webp",
@@ -2419,6 +2482,104 @@
       ["CCR", 2022, "us", "Director Creativo y Diseñador Gráfico", "Creative Director & Graphic Designer", "Rebranding de cuentas, manuales de marca y mentoría a diseñadores.", "Account rebranding, brand manuals, and designer mentoring."],
       ["SERVIMETERS", "2024 - 2026", "co", "Diseñador de Publicidad", "Advertising Designer", "Diseño UI, brochures, campañas y comunicación corporativa.", "UI design, brochures, campaigns, and corporate communication."]
     ];
+
+    /* ===== Detalle por cargo: necesidad, aporte (lista) y resultado ===== */
+    const JOB_DETAIL = {
+      "SERVIMETERS": {
+        needEs: "La empresa necesitaba fortalecer la presentación visual de su portafolio de servicios, mantener la coherencia de su comunicación de marca y disponer de materiales gráficos para apoyar sus canales comerciales, digitales y de capacitación.",
+        needEn: "The company needed to strengthen the visual presentation of its service portfolio, keep its brand communication consistent, and have graphic materials to support its sales, digital and training channels.",
+        didEs: [
+          "Actualicé el portafolio de servicios, la línea gráfica y el universo visual de la empresa.",
+          "Diseñé y adapté campañas, banners, brochures, landing pages y materiales corporativos para medios digitales y comerciales.",
+          "Desarrollé plantillas y recursos gráficos para uso interno y procesos de capacitación.",
+          "Diseñé piezas publicitarias para webinars y programas de formación.",
+          "Gestioné contenidos visuales del sitio web, incluidos blogs, banners y actualizaciones.",
+          "Elaboré materiales para capacitaciones sincrónicas y asincrónicas, así como certificados para los programas formativos.",
+          "Apoyé la comunicación visual de servicios y programas comerciales.",
+          "Participé en la inducción y capacitación de ejecutivos comerciales sobre servicios y alcance de ONAC.",
+          "Apliqué conocimientos del contexto técnico de certificación, inspección, calibración y ensayos, así como de sistemas de gestión ISO y reglamentos técnicos relacionados con RETIE, RITEL y RETILAP, entre otros."
+        ],
+        didEn: [
+          "Updated the service portfolio, the graphic line and the company's visual universe.",
+          "Designed and adapted campaigns, banners, brochures, landing pages and corporate materials for digital and commercial media.",
+          "Developed templates and graphic resources for internal use and training processes.",
+          "Designed advertising pieces for webinars and training programs.",
+          "Managed the website's visual content, including blogs, banners and updates.",
+          "Produced materials for synchronous and asynchronous training, as well as certificates for the training programs.",
+          "Supported the visual communication of commercial services and programs.",
+          "Took part in the onboarding and training of sales executives on ONAC services and scope.",
+          "Applied technical knowledge of certification, inspection, calibration and testing, as well as ISO management systems and technical regulations such as RETIE, RITEL and RETILAP, among others."
+        ],
+        resEs: "Contribuí a fortalecer la presentación visual del portafolio de servicios, mantener la coherencia gráfica entre los materiales comerciales y digitales, y facilitar la disponibilidad de recursos para comunicación, formación y apoyo al equipo comercial.",
+        resEn: "I helped strengthen the visual presentation of the service portfolio, keep graphic consistency across commercial and digital materials, and make resources available for communication, training and sales team support."
+      },
+      "CCR": {
+        needEs: "Las marcas y cuentas de la empresa requerían procesos de renovación visual y criterios gráficos definidos para mejorar la consistencia de su identidad y la aplicación de marca en diferentes piezas.",
+        needEn: "The company's brands and accounts required visual renewal processes and defined graphic criteria to improve the consistency of their identity and how the brand was applied across different pieces.",
+        didEs: [
+          "Desarrollé procesos de rebranding para las cuentas de la empresa.",
+          "Analicé las marcas desde la perspectiva del branding, la identidad visual y la comunicación gráfica.",
+          "Creé y estructuré manuales de marca con lineamientos para su aplicación.",
+          "Orienté a diseñadores junior y practicantes recién egresados en el desarrollo de piezas gráficas.",
+          "Brindé acompañamiento en la aplicación de criterios visuales y lineamientos de identidad."
+        ],
+        didEn: [
+          "Developed rebranding processes for the company's accounts.",
+          "Analyzed brands from the perspective of branding, visual identity and graphic communication.",
+          "Created and structured brand manuals with guidelines for their application.",
+          "Mentored junior designers and recent-graduate interns in developing graphic pieces.",
+          "Provided guidance on applying visual criteria and identity guidelines."
+        ],
+        resEs: "Contribuí a estructurar sistemas de identidad visual más definidos, facilitar la aplicación coherente de las marcas y fortalecer los criterios gráficos utilizados por el equipo de diseño.",
+        resEn: "I helped build more clearly defined visual identity systems, make brand application more coherent, and strengthen the graphic criteria used by the design team."
+      },
+      "NEUROPUBLICIDAD": {
+        needEs: "Los procesos de comunicación y publicidad requerían piezas gráficas funcionales y recursos que facilitaran la producción recurrente de contenidos.",
+        needEn: "Communication and advertising processes required functional graphic pieces and resources that made recurring content production easier.",
+        didEs: [
+          "Diseñé y desarrollé piezas gráficas para comunicación y publicidad.",
+          "Creé plantillas funcionales para organizar y agilizar los procesos de producción gráfica."
+        ],
+        didEn: [
+          "Designed and developed graphic pieces for communication and advertising.",
+          "Created functional templates to organize and speed up graphic production processes."
+        ],
+        resEs: "Contribuí a disponer de recursos gráficos reutilizables y a optimizar la preparación de piezas para las necesidades de comunicación y publicidad.",
+        resEn: "I helped make reusable graphic resources available and optimize how pieces were prepared for communication and advertising needs."
+      },
+      "MARKETING108": {
+        needEs: "La construcción y aplicación de las identidades de marca requería documentación gráfica y lineamientos que permitieran mantener criterios visuales consistentes.",
+        needEn: "Building and applying brand identities required graphic documentation and guidelines to keep visual criteria consistent.",
+        didEs: [
+          "Diseñé y maqueté manuales de marca.",
+          "Apoyé el desarrollo y la estructuración de sistemas de identidad visual."
+        ],
+        didEn: [
+          "Designed and laid out brand manuals.",
+          "Supported the development and structuring of visual identity systems."
+        ],
+        resEs: "Contribuí a documentar los criterios de identidad visual y a facilitar su consulta y aplicación en el desarrollo de materiales gráficos.",
+        resEn: "I helped document visual identity criteria and make them easier to consult and apply when developing graphic materials."
+      },
+      "KREATION INTERACTIVE": {
+        needEs: "Las marcas atendidas requerían propuestas gráficas que representaran su identidad y permitieran comunicar sus mensajes en diferentes medios y aplicaciones.",
+        needEn: "The brands served required graphic proposals that represented their identity and allowed them to communicate their messages across different media and applications.",
+        didEs: [
+          "Desarrollé propuestas de marca y apoyé la creación de logotipos.",
+          "Diseñé líneas gráficas para fortalecer la comunicación visual de las marcas.",
+          "Elaboré piezas de señalización empresarial.",
+          "Desarrollé contenidos gráficos para redes sociales."
+        ],
+        didEn: [
+          "Developed brand proposals and supported logo creation.",
+          "Designed graphic lines to strengthen the brands' visual communication.",
+          "Produced corporate signage pieces.",
+          "Developed graphic content for social media."
+        ],
+        resEs: "Contribuí al desarrollo de propuestas de identidad y recursos visuales aplicables a distintos canales de comunicación, desde redes sociales hasta señalización empresarial.",
+        resEn: "I contributed to identity proposals and visual resources applicable to different communication channels, from social media to corporate signage."
+      }
+    };
 
     /* ===== Logofolios Data ===== */
     const logoFolders = [
@@ -2607,10 +2768,23 @@
     function renderTimeline() {
       if (!tlWrap) return;
       const es = LANG === 'es';
-      const items = JOBS.map((j, i) => {
+      const items = JOBS.slice().reverse().map((j, i) => { // más reciente primero
         const place = PLACE[j[2]];
         const hl = j[1] === '2024 - 2026';
         const long = String(j[1]).length > 4;
+        const D = JOB_DETAIL[j[0]];
+        const more = D ? `
+              <details class="tl-more">
+                <summary>${es ? 'Ver detalle' : 'View details'}</summary>
+                <div class="tl-det">
+                  <h4>${es ? 'Necesidad' : 'Need'}</h4>
+                  <p>${es ? D.needEs : D.needEn}</p>
+                  <h4>${es ? 'Mi aporte' : 'My contribution'}</h4>
+                  <ul>${(es ? D.didEs : D.didEn).map(t => `<li>${t}</li>`).join('')}</ul>
+                  <h4>${es ? 'Resultado o valor generado' : 'Result or value generated'}</h4>
+                  <p>${es ? D.resEs : D.resEn}</p>
+                </div>
+              </details>` : '';
         return `
           <article class="tl-item ${i % 2 === 0 ? 'l' : 'r'}${hl ? ' hl' : ''}">
             <div class="tl-card" tabindex="0">
@@ -2620,6 +2794,7 @@
               <div class="tl-loc">${es ? place[0] : place[1]}</div>
               <div class="tl-role">${es ? j[3] : j[4]}</div>
               <p>${es ? j[5] : j[6]}</p>
+              ${more}
               ${hl ? `<em>${es ? 'Destacado' : 'Featured'}</em>` : ''}
             </div>
             <span class="tl-dot"></span>
@@ -2832,7 +3007,7 @@
               <button class="carousel-nav-btn prev" aria-label="Logotipo anterior">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
               </button>
-              <img id="stage-img-${folder.id}" src="${folder.images[0]}" alt="${folder.label} logotipo" data-bs-toggle="modal" data-bs-target="#lightboxModal">
+              <img id="stage-img-${folder.id}" src="${folder.images[0]}" alt="${folder.label} logotipo" title="Clic para ampliar">
               <button class="carousel-nav-btn next" aria-label="Logotipo siguiente">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </button>
@@ -2845,6 +3020,7 @@
 
         contentEl.appendChild(pane);
 
+        pane.querySelector('.carousel-stage img').addEventListener('click', () => openLB(folder.images, carouselState[folder.id], LANG === 'es' ? folder.label : (folder.labelEn || folder.label), true));
         pane.querySelector('.carousel-nav-btn.prev').addEventListener('click', () => goTo(folder, carouselState[folder.id] - 1));
         pane.querySelector('.carousel-nav-btn.next').addEventListener('click', () => goTo(folder, carouselState[folder.id] + 1));
         pane.querySelectorAll('.thumb-item').forEach(thumb => {
@@ -2931,8 +3107,9 @@
       resetZoom();
     }
 
-    function openLB(imgs, idx, title = '') {
+    function openLB(imgs, idx, title = '', onWhite = false) {
       lbImgs = imgs; lbIdx = idx; lbTitle = title;
+      lb.classList.toggle('logo', !!onWhite); // logotipos: fondo blanco para que se vean bien
       lb.hidden = false;
       document.body.style.overflow = 'hidden';
       renderLB();
@@ -3093,51 +3270,107 @@
       }
     }
 
-    /* ===== Pluma: vectorizando el rombo ===== */
+    /* ===== Pluma vectorial: edita el nombre como en Illustrator ===== */
     (function () {
-      const vO = $('#vOuter'), vI = $('#vInner'), vL = $('#vLines'), gA = $('#vAnchors'), gH = $('#vHandles'), pen = $('#vPen');
-      if (!vO || !pen) return;
-      const NS = 'http://www.w3.org/2000/svg';
-      const BASE = {
-        O: [[100, 10], [180, 60], [160, 150], [100, 190], [40, 150], [20, 60]],
-        I: [[100, 40], [150, 70], [135, 130], [100, 160], [65, 130], [50, 70]]
-      };
-      const cur = { O: BASE.O.map(p => p.slice()), I: BASE.I.map(p => p.slice()) };
-      const st = { pO: [], pI: [], lines: false, sel: null, pen: [100, 10] };
-      const anchors = [];
-      ['O', 'I'].forEach(k => cur[k].forEach((p, i) => {
-        const el = document.createElementNS(NS, 'rect');
-        el.setAttribute('width', 4.4); el.setAttribute('height', 4.4);
-        gA.appendChild(el);
-        anchors.push({ k, i, p, el, on: false });
-      }));
-      const hl = [$('#vH1'), $('#vH2')], hc = [$('#vC1'), $('#vC2')];
-      const pts = a => a.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+      const txt = document.querySelector('.txt');
+      const lines = Array.from(document.querySelectorAll('.txt .ln:not(.sub)'));
+      if (!txt || lines.length < 2) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      function render() {
-        vO.setAttribute('points', pts(st.pO));
-        vI.setAttribute('points', pts(st.pI));
-        if (st.lines) {
-          const o = cur.O;
-          vL.setAttribute('d', `M${o[0]}L${o[3]}M${o[5]}L${o[2]}M${o[1]}L${o[4]}`);
-        }
-        anchors.forEach(a => {
-          a.el.setAttribute('x', a.p[0] - 2.2);
-          a.el.setAttribute('y', a.p[1] - 2.2);
-          a.el.classList.toggle('on', a.on);
-          a.el.classList.toggle('sel', st.sel === a.p);
-        });
-        if (st.sel) {
-          const p = st.sel, r = [p[0] - 100, p[1] - 100], l = Math.hypot(r[0], r[1]) || 1;
-          const t = [-r[1] / l * 15, r[0] / l * 15];
-          [[1, 0], [-1, 1]].forEach(([sg, n]) => {
-            const x = p[0] + t[0] * sg, y = p[1] + t[1] * sg;
-            hl[n].setAttribute('x1', p[0]); hl[n].setAttribute('y1', p[1]);
-            hl[n].setAttribute('x2', x); hl[n].setAttribute('y2', y);
-            hc[n].setAttribute('cx', x); hc[n].setAttribute('cy', y);
+      // Separa la "A" inicial para poder editarla como un trazo aparte
+      const l0 = lines[0], tn = l0.firstChild;
+      if (!tn || tn.nodeType !== 3 || !tn.nodeValue.length) return;
+      const aSpan = document.createElement('span');
+      aSpan.className = 'vA';
+      aSpan.textContent = tn.nodeValue.charAt(0);
+      tn.nodeValue = tn.nodeValue.slice(1);
+      l0.insertBefore(aSpan, tn);
+      lines.forEach(l => { l.style.transformOrigin = '0 50%'; });
+      aSpan.style.transformOrigin = '50% 100%';
+
+      const NS = 'http://www.w3.org/2000/svg';
+      const mk = (n, at, p) => {
+        const e = document.createElementNS(NS, n);
+        for (const k in at) e.setAttribute(k, at[k]);
+        (p || svg).appendChild(e);
+        return e;
+      };
+      const ov = document.createElement('div');
+      ov.className = 'vec';
+      ov.setAttribute('aria-hidden', 'true');
+      const svg = document.createElementNS(NS, 'svg');
+      ov.appendChild(svg);
+      txt.appendChild(ov);
+
+      const H = 8;
+      const gBox = mk('g', { class: 'vx' });
+      const box = mk('rect', { fill: 'none', stroke: '#a98cff', 'stroke-width': 1 }, gBox);
+      const hs = Array.from({ length: 8 }, () => mk('rect', { class: 'vh', width: H, height: H }, gBox));
+      const gA = mk('g', { class: 'vx' });
+      const apath = mk('path', { fill: 'none', stroke: '#a98cff', 'stroke-width': 1.4, 'stroke-linejoin': 'round' }, gA);
+      const tan = mk('line', { stroke: '#E2DCEA', 'stroke-width': 1 }, gA);
+      const tc = [mk('circle', { r: 3, fill: '#E2DCEA' }, gA), mk('circle', { r: 3, fill: '#E2DCEA' }, gA)];
+      const as = Array.from({ length: 3 }, () => mk('rect', { class: 'vh', width: H, height: H }, gA));
+      const gPen = mk('g', { class: 'vx vpen' });
+      const penG = mk('g', {}, gPen);
+      const pi = mk('g', { transform: 'rotate(28)' }, penG);
+      mk('path', { d: 'M0 0L-6 -13Q-6.5 -19 -4 -22L4 -22Q6.5 -19 6 -13Z', fill: '#F5F0E8', stroke: '#1a0f2e', 'stroke-width': 1.1, 'stroke-linejoin': 'round' }, pi);
+      mk('path', { d: 'M0 -3L0 -13', stroke: '#1a0f2e', 'stroke-width': 1 }, pi);
+      mk('circle', { cx: 0, cy: -14.5, r: 1.7, fill: '#1a0f2e' }, pi);
+      mk('rect', { x: -4.6, y: -28, width: 9.2, height: 6, rx: 1.4, fill: '#1a0f2e', stroke: '#F5F0E8', 'stroke-width': 1 }, pi);
+
+      const st = { line: lines[0], box: false, hSel: -1, a: false, aSel: false, pen: [0, 0], penOn: false };
+
+      // Cajas de selección (relativas a .txt), con un margen para ajustarse a las mayúsculas
+      const inset = (b, t) => {
+        const it = b.height * .14, ib = b.height * .18;
+        return { x: b.left - t.left, y: b.top - t.top + it, w: b.width, h: b.height - it - ib };
+      };
+      const textBox = el => {
+        const r = document.createRange();
+        r.selectNodeContents(el);
+        return inset(r.getBoundingClientRect(), txt.getBoundingClientRect());
+      };
+      const elBox = el => inset(el.getBoundingClientRect(), txt.getBoundingClientRect());
+      const hpts = b => [
+        [b.x, b.y], [b.x + b.w / 2, b.y], [b.x + b.w, b.y], [b.x + b.w, b.y + b.h / 2],
+        [b.x + b.w, b.y + b.h], [b.x + b.w / 2, b.y + b.h], [b.x, b.y + b.h], [b.x, b.y + b.h / 2]
+      ];
+      const aPts = () => {
+        const b = elBox(aSpan);
+        return { apex: [b.x + b.w / 2, b.y], lf: [b.x + b.w * .06, b.y + b.h], rf: [b.x + b.w * .94, b.y + b.h], w: b.w };
+      };
+
+      function draw() {
+        const fs = parseFloat(getComputedStyle(l0).fontSize) || 60;
+        if (st.box) {
+          const b = textBox(st.line);
+          box.setAttribute('x', b.x); box.setAttribute('y', b.y);
+          box.setAttribute('width', b.w); box.setAttribute('height', b.h);
+          hpts(b).forEach((p, i) => {
+            hs[i].setAttribute('x', p[0] - H / 2); hs[i].setAttribute('y', p[1] - H / 2);
+            hs[i].classList.toggle('sel', i === st.hSel);
           });
         }
-        gH.classList.toggle('on', !!st.sel);
+        gBox.classList.toggle('on', st.box);
+        if (st.a) {
+          const q = aPts();
+          apath.setAttribute('d', `M${q.lf}L${q.apex}L${q.rf}`);
+          [q.apex, q.lf, q.rf].forEach((p, i) => {
+            as[i].setAttribute('x', p[0] - H / 2); as[i].setAttribute('y', p[1] - H / 2);
+            as[i].classList.toggle('sel', st.aSel && i === (st.aMode === 'apex' ? 0 : 2));
+          });
+          const d = q.w * .45;
+          tan.setAttribute('x1', q.apex[0] - d); tan.setAttribute('y1', q.apex[1]);
+          tan.setAttribute('x2', q.apex[0] + d); tan.setAttribute('y2', q.apex[1]);
+          tc[0].setAttribute('cx', q.apex[0] - d); tc[0].setAttribute('cy', q.apex[1]);
+          tc[1].setAttribute('cx', q.apex[0] + d); tc[1].setAttribute('cy', q.apex[1]);
+          tan.style.opacity = tc[0].style.opacity = tc[1].style.opacity = st.aSel && st.aMode === 'apex' ? 1 : 0;
+        }
+        gA.classList.toggle('on', st.a);
+        gPen.classList.toggle('on', st.penOn);
+        const s = Math.min(1.3, Math.max(.7, fs / 70));
+        penG.setAttribute('transform', `translate(${st.pen[0]} ${st.pen[1]}) scale(${s})`);
       }
 
       const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
@@ -3146,65 +3379,76 @@
         const t0 = performance.now();
         (function f(now) {
           const k = Math.min(1, (now - t0) / ms);
-          fn(ease(k)); render();
+          fn(ease(k)); draw();
           k < 1 ? requestAnimationFrame(f) : res();
         })(t0);
       });
-      const movePen = (x, y) => { st.pen = [x, y]; pen.setAttribute('transform', `translate(${x} ${y})`); };
-      const penTo = (x, y, ms) => { const f = st.pen.slice(); return tween(ms, k => movePen(f[0] + (x - f[0]) * k, f[1] + (y - f[1]) * k)); };
-      const show = (k, i) => { anchors.find(a => a.k === k && a.i === i).on = true; };
+      const penTo = (x, y, ms) => {
+        const f = st.pen.slice();
+        return tween(ms, k => { st.pen = [f[0] + (x - f[0]) * k, f[1] + (y - f[1]) * k]; });
+      };
 
-      async function drawPoly(k, segMs) {
-        const P = cur[k], key = k === 'O' ? 'pO' : 'pI';
-        st[key] = [P[0], P[0]];
-        show(k, 0); render();
-        for (let i = 1; i <= P.length; i++) {
-          const a = P[i - 1], b = P[i % P.length];
-          await tween(segMs, e => {
-            const t = [a[0] + (b[0] - a[0]) * e, a[1] + (b[1] - a[1]) * e];
-            st[key] = [...P.slice(0, i), t];
-            movePen(t[0], t[1]);
-          });
-          if (i < P.length) show(k, i);
-        }
-        st[key] = [...P, P[0]];
-        render();
+      // Arrastra el tirador derecho: la línea se estira o se encoge
+      async function dragLine(line, k) {
+        st.line = line; st.box = true; draw();
+        await wait(450);
+        const grip = () => hpts(textBox(line))[3];
+        await penTo(grip()[0], grip()[1], 700);
+        st.hSel = 3; draw();
+        await wait(150);
+        await tween(900, e => { line.style.scale = (1 + (k - 1) * e) + ' 1'; st.pen = grip().slice(); });
+        await wait(500);
+        await tween(800, e => { line.style.scale = (k + (1 - k) * e) + ' 1'; st.pen = grip().slice(); });
+        line.style.scale = '';
+        st.hSel = -1; st.box = false; draw();
+        await wait(450);
       }
 
-      const still = () => {
-        st.pO = [...cur.O, cur.O[0]]; st.pI = [...cur.I, cur.I[0]]; st.lines = true;
-        anchors.forEach(a => a.on = true); vL.style.opacity = 1; render();
-      };
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return still();
+      // Selecciona la "A": arrastra el vértice superior o abre las patas
+      async function dragA(mode) {
+        st.aMode = mode; st.a = true; st.aSel = false; draw();
+        await wait(450);
+        const tgt = () => (mode === 'apex' ? aPts().apex : aPts().rf);
+        await penTo(tgt()[0], tgt()[1], 700);
+        st.aSel = true; draw();
+        await wait(150);
+        const set = e => {
+          if (mode === 'apex') aSpan.style.scale = `1 ${1 + .18 * e}`;
+          else { aSpan.style.scale = `${1 + .24 * e} 1`; aSpan.style.rotate = `${-5 * e}deg`; }
+        };
+        await tween(900, e => { set(e); st.pen = tgt().slice(); });
+        await wait(500);
+        await tween(800, e => { set(1 - e); st.pen = tgt().slice(); });
+        aSpan.style.scale = ''; aSpan.style.rotate = '';
+        st.aSel = false; st.a = false; draw();
+        await wait(450);
+      }
+
+      window.addEventListener('resize', draw);
 
       (async function run() {
-        await wait(1700);
-        movePen(...cur.O[0]); pen.classList.add('on');
-        await drawPoly('O', 380);
-        await penTo(cur.I[0][0], cur.I[0][1], 500);
-        await drawPoly('I', 280);
-        st.lines = true; vL.style.opacity = 1; render();
-        await wait(700);
-        let last = -1;
+        await wait(2600);
+        const b = textBox(l0);
+        st.pen = [b.x + b.w + 24, b.y + b.h + 36];
+        st.penOn = true; draw();
+        const plan = [() => dragLine(lines[0], .84), () => dragA('apex'), () => dragLine(lines[1], .84), () => dragA('foot')];
+        let n = 0;
         while (true) {
-          let n; do { n = Math.floor(Math.random() * 12); } while (n === last);
-          last = n;
-          const k = n < 6 ? 'O' : 'I', i = n % 6, p = cur[k][i], b = BASE[k][i];
-          await penTo(p[0], p[1], 650);
-          st.sel = p; render();
-          await wait(250);
-          const r = [b[0] - 100, b[1] - 100], l = Math.hypot(r[0], r[1]);
-          const amt = (Math.random() < .7 ? 1 : -.6) * (9 + Math.random() * 12);
-          const tg = [b[0] + r[0] / l * amt, b[1] + r[1] / l * amt], s0 = p.slice();
-          await tween(950, e => {
-            p[0] = s0[0] + (tg[0] - s0[0]) * e; p[1] = s0[1] + (tg[1] - s0[1]) * e;
-            movePen(p[0], p[1]);
-          });
-          await wait(450);
-          st.sel = null; render();
-          await wait(350);
+          await plan[n++ % plan.length]();
+          await wait(700);
         }
       })();
+    })();
+
+    /* ===== Muestra el nombre cuando las fuentes ya cargaron ===== */
+    (function () {
+      const show = () => document.documentElement.classList.remove('fl');
+      if (document.fonts && document.fonts.load) {
+        Promise.all([
+          document.fonts.load('400 1em "Potta One"'),
+          document.fonts.load('700 1em "Poppins"')
+        ]).then(show, show);
+      } else show();
     })();
 
     /* ===== Burger ===== */
